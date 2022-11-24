@@ -1,0 +1,60 @@
+{%  extends 'calls/main.html' %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body" id="walkins">
+			<h5>Walkins</h5>
+		</div>
+		<div class="card card-body">
+			<div class="row">
+				<form method="get">
+					{{ walkinFilter.form }}
+					<button class="btn btn-primary" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+		<div class="card card-body">
+			<table class="table">
+				<tr>
+					<th>Date</th>
+					<th>Time</th>
+					<th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Department</th>
+                    <th>Reason for visit</th>
+					<th>Notes</th>
+				</tr>				
+				{% for walkin in walkins %}
+					<tr>
+						<td>{{ walkin.datetime.date }}</td>
+						<td>{{ walkin.datetime.time }}</td>
+						<td>{{ walkin.firstname }}</td>
+                        <td>{{ walkin.lastname }}</td>
+                        <td>{{ walkin.department }}</td>
+                        <td>{{ walkin.reason }}</td>
+						<td><a method="POST" class="btn btn-sm btn-info" href="{% url 'walkin_notes' walkin.id %}">Notes</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			<div class="row">
+				<p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}</p>
+				<ul class="pagination align-right float-right ml-auto">
+					{% if page_obj.has_previous %}
+					<li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+					{% endif %}
+			  
+					{% if page_obj.has_next %}
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>		
+</div>
+
+{% endblock content %}

@@ -1,0 +1,70 @@
+{%  extends 'calls/main.html' %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body" id="responders_tab">
+			<h5>Responders</h5>
+		</div>
+		<div class="card card-body">
+			<div class="row">
+				<form method="get">
+
+					{{ responderFilter.form }}
+
+					<button class="btn btn-primary" type="submit">Search</button>
+				</form>
+				<a class="btn btn-success btn-lg btn-block ml-auto" id="new_responder_btn" href="{% url 'new_responder' %}">➕ New Responder</a>
+			</div>
+		</div>
+		<div class="card card-body">
+			<table class="table">
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Certification</th>
+					<th>FT/PT</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Status</th>
+					<th>Update</th>
+				</tr>		
+				{% for responder in responders %}
+					<tr>
+						<td>{{ responder.id }}</td>
+						<td>{{ responder.firstname }} {{ responder.lastname }}</td>
+						<td>{{ responder.certification }}</td>
+						<td>{{ responder.status }}</td>
+						<td>{{ responder.phone }}</td>
+						<td>{{ responder.email }}</td>	
+						{% if responder.active == True %}
+							<td>Active</td>
+						{% endif %}
+						{% if responder.active == False %}
+							<td>Inactive</td>
+						{% endif %}
+						<td><a method="POST" class="btn btn-sm btn-info" id="on_scene_btn" href="{% url 'update_responder' responder.id %}">Update</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			<div class="row">
+				<p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}</p>
+				<ul class="pagination align-right float-right ml-auto">
+					{% if page_obj.has_previous %}
+					<li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+					{% endif %}
+			  
+					{% if page_obj.has_next %}
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>		
+</div>
+
+{% endblock content %}

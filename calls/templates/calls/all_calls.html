@@ -1,0 +1,70 @@
+{%  extends 'calls/main.html' %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body" id="calls">
+			<h5>Calls</h5>
+		</div>
+		<div class="card card-body">
+			<div class="row">
+				<form method="get">
+
+					{{ callFilter.form }}
+
+					<button class="btn btn-primary" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+		<div class="card card-body">
+			<table class="table">
+				<tr>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Nature</th>
+                    <th>Location</th>
+                    <th>Caller</th>
+                    <th>Responder</th>
+					<th>On Scene</th>
+                    <th>Upgraded</th>
+                    <th>EMS On Scene</th>
+                    <th>EMS Clear</th>
+					<th>Cancelled</th>
+				</tr>		
+				{% for call in page_obj %}
+					<tr>
+						<td>{{ call.datetime|date:"m/d/y" }}</td>
+						<td>{{ call.datetime|time:"G:i" }}</td>
+						<td>{{ call.nature }}</td>
+                        <td>{{ call.location }}</td>
+                        <td>{{ call.caller }}</td>
+						<td>{{ call.responder_id }}</td>
+						<td>{{ call.on_scene_time }}</td>
+                        <td>{{ call.upgrade_time }}</td>
+                        <td>{{ call.ems_on_scene_time }}</td>
+                        <td>{{ call.ems_clear_scene_time }}</td>
+						<td>{{ call.cancel_time }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+			<div class="row">
+				<p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}</p>
+				<ul class="pagination align-right float-right ml-auto">
+					{% if page_obj.has_previous %}
+					<li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+					{% endif %}
+			  
+					{% if page_obj.has_next %}
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>		
+</div>
+
+{% endblock content %}
