@@ -6,51 +6,58 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 
 from .models import *
 from .forms import *
 from .filters import *
+from .decorators import *
 
 
 ######### Register/Login ############
 # - Register
+@unauthenticated_user
 def registerPage(request):
 
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = CreateUserForm(request.POST)
+    form = CreateUserForm()
 
-        if request.method == 'POST':      
-            if form.is_valid():
-                form.save()
-                user = form.cleaned_data.get('username')
-                messages.success(request, 'Account was created for ' + user)
-                return redirect('login')
-            
-        context = {'form': form}
-        return render(request, 'calls/register.html', context)
+    if request.method == 'POST': 
+
+        form = CreateUserForm(request.POST)  
+
+        if form.is_valid():
+
+            user = form.save()
+            username = form.cleaned_data.get('username')
+
+            group = Group.objects.get(name='Supervisors')
+            user.groups.add(group)
+
+            messages.success(request, 'Account was created for ' + username)
+
+            return redirect('login')
+        
+    context = {'form': form}
+    return render(request, 'calls/register.html', context)
 
 # - Login
+@unauthenticated_user
 def loginPage(request):
+        
+    if request.method == 'POST':
 
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == 'POST':
-    
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = authenticate(request, username=username, password=password)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
 
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-            else:
-                messages.info(request, 'Username or password is incorrect')
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.info(request, 'Username or password is incorrect')
 
-        context = {}
-        return render(request, 'calls/login.html', context)
+    context = {}
+    return render(request, 'calls/login.html', context)
 
 # - Logout
 def logoutUser(request):
@@ -59,8 +66,16 @@ def logoutUser(request):
 
     return redirect('login')
 
+# - User
+def userPage(request):
+
+    context = {}
+
+    return render(request, 'calls/user.html', context)
+
 ######### Dashboard ############\
 @login_required(login_url='login')
+@admin_only
 def home(request):
 
     today = datetime.today().date()
@@ -91,6 +106,7 @@ def home(request):
 ######### RESPONDERS #########
 # - All Responders
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def allResponders(request):
     
     responders = Responder.objects.all().order_by('firstname').values()
@@ -112,6 +128,7 @@ def allResponders(request):
 
 # - New Responder
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def newResponder(request):
 
     form = ResponderForm()
@@ -127,6 +144,7 @@ def newResponder(request):
 
 # - Update Responder
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def updateResponder(request, pk):
 
     responder = Responder.objects.get(id=pk)
@@ -144,6 +162,7 @@ def updateResponder(request, pk):
 ######### CALLS #########
 # - All Calls
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def allCalls(request):
 
     calls = Call.objects.all().order_by('-datetime').values()
@@ -164,6 +183,7 @@ def allCalls(request):
 
 # - New Call
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def newCall(request):
 
     form = CallForm()
@@ -179,6 +199,7 @@ def newCall(request):
 
 # - On Scene
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def onScene(request, pk):
 
     call = Call.objects.get(id=pk)
@@ -193,6 +214,7 @@ def onScene(request, pk):
 
 # - Upgrade Call
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def upgradeCall(request, pk):
 
     call = Call.objects.get(id=pk)
@@ -209,6 +231,7 @@ def upgradeCall(request, pk):
 
 # - Cancel
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def cancelCall(request, pk):
 
     call = Call.objects.get(id=pk)
@@ -224,6 +247,7 @@ def cancelCall(request, pk):
 ######### WALKINS #########
 # - All Walkins
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def allWalkins(request):
 
     walkins = Walkin.objects.all().order_by('-datetime').values()
@@ -244,6 +268,7 @@ def allWalkins(request):
 
 # - New Walkin
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def newWalkin(request):
 
     form = WalkinForm()
@@ -259,6 +284,7 @@ def newWalkin(request):
 
 # - Walkin
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def walkins(request, pk):
 
     walkin = Walkin.objects.get(id=pk)
@@ -274,6 +300,7 @@ def walkins(request, pk):
 
 # - Walkin Notes
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def walkinNotes(request, pk):
 
     walkin = Walkin.objects.get(id=pk)
