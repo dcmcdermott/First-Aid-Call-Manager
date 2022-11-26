@@ -282,6 +282,24 @@ def newWalkin(request):
     context = {'form': form}
     return render(request, 'calls/walkin_form.html', context)
 
+# - Ambassador Sign in
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
+def ambassadorSignin(request):
+
+    form = WalkinForm()
+
+    if request.method == 'POST':
+        form = WalkinForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Sign-in Success!')
+            return redirect('/ambassador_signin')
+        
+
+    context = {'form': form}
+    return render(request, 'calls/ambassador_signin_form.html', context)
+
 # - Walkin
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])

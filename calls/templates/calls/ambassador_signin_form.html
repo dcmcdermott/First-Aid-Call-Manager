@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Register</title>
+		<title>Ambassasdor Sign</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -15,7 +15,7 @@
 			}
 			.user_card {
 				width: 350px;
-				margin-top: 5rem;
+				margin-top: 3rem;
 				margin-bottom: auto;
 				background: #c5cfde;
 				position: relative;
@@ -57,15 +57,24 @@
 				box-shadow: none !important;
 				outline: 0px !important;
 			}
+            .wash-hands {
+                text-align: center;
+                margin-top: 3rem;
+            }
+			#message_container {
+				text-align: center;
+				margin-top: 2rem;
+			}
 		</style>
 	</head>
 	<body>
 		{% include 'calls/login_navbar.html' %}
 		<div class="container h-100">
+            <h3 class="wash-hands">Please wash your hands before signing in</h3>
 			<div class="d-flex justify-content-center h-100">
 				<div class="user_card">
 					<div class="d-flex justify-content-center">
-						<h3 id="form-title">REGISTER ACCOUNT</h3>
+						<h3 id="form-title">FIRST AID SIGN IN</h3>
 					</div>
 					<div class="d-flex justify-content-center form_container">
 						<form method="POST" action="">
@@ -74,49 +83,35 @@
 								<div class="input-group-append">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								{{form.username}}
-							</div>
-							<div class="input-group mb-2">
-								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
-								</div>
-								{{form.email}}
-							</div>
-							<div class="input-group mb-3">
-								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
-								{{form.first_name}}
+								{{form.firstname}}
 							</div>
 							<div class="input-group mb-2">
 								<div class="input-group-append">
 									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								{{form.last_name}}
+								{{form.lastname}}
 							</div>
 							<div class="input-group mb-2">
 								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								{{form.password1}}
+								{{form.department}}
 							</div>
 							<div class="input-group mb-2">
 								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
 								</div>
-								{{form.password2}}
+								{{form.reason}}
 							</div>
 					   		<div class="d-flex justify-content-center mt-3 login_container">
-					 			<input class="btn login_btn" type="submit" value="Register Account">
+					 			<input class="btn login_btn" type="submit" value="Sign In">
 					   		</div>
 						</form>
 					</div>
 					{{form.errors}}
-					<div class="mt-4">
-						<div class="d-flex justify-content-center links">
-							Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
-						</div>
-					</div>
+					{% for message in messages %}
+						<h3 id="message_container">{{message}}</h3>
+					{% endfor %}
 				</div>
 			</div>
 		</div>
@@ -124,15 +119,19 @@
 		<script>
 			// Replace with placeholder values in forms.py
 			var form_fields = document.getElementsByTagName('input')
-			form_fields[1].placeholder='Username..';
-			form_fields[2].placeholder='Email..';
-			form_fields[3].placeholder='First name..';
-			form_fields[4].placeholder='Last name..';
-			form_fields[5].placeholder='Enter password...';
-			form_fields[6].placeholder='Re-enter Password...';
+			form_fields[1].placeholder='First name..';
+			form_fields[2].placeholder='Last name..';
+			form_fields[3].placeholder='Reason for visit...';
 			for (var field in form_fields){	
 				form_fields[field].className += ' form-control'
 			}
+			// suppose the `id` attribute of element is `message_container`.
+			var message_ele = document.getElementById("message_container");
+
+			setTimeout(function(){ 
+   				message_ele.style.display = "none"; 
+			}, 3000);
+// Timeout is 3 sec, you can change it
 		</script>
 	</body>
 </html>

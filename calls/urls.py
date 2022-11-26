@@ -22,6 +22,7 @@ urlpatterns = [
     path('new_walkin/', views.newWalkin, name='new_walkin'),
     path('walkins/<str:pk>/', views.walkins, name="walkins"),
     path('walkin_notes/<str:pk>/', views.walkinNotes, name='walkin_notes'),
+    path('ambassador_signin/', views.ambassadorSignin, name='ambassador_signin'),
     # Responders
     path('responders/', views.allResponders, name="all_responders"),
     path('new_responder/', views.newResponder, name='new_responder'),
