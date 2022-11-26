@@ -294,6 +294,7 @@ def ambassadorSignin(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Sign-in Success!')
+            
             return redirect('/ambassador_signin')
         
 
