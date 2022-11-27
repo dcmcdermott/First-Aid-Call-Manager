@@ -1,19 +1,27 @@
 import django_filters
-from django_filters import CharFilter, DateFilter, BooleanFilter, ChoiceFilter
-from django.forms import DateTimeInput, CheckboxInput
+from django_filters import CharFilter, DateFilter, BooleanFilter, ChoiceFilter, ModelChoiceFilter
+from django.forms import DateTimeInput, CheckboxInput, TextInput, Select
 
 from .models import *
 
 
 class ResponderFilter(django_filters.FilterSet):
 
+    CERTIFICATIONS = (
+        ('EMT-B', 'EMT-B'),
+        ('EMT-P', 'EMT-P'),
+        ('LPN', 'LPN'),
+        ('RN', 'RN')
+    )
     STATUS = (
         ('PT', 'PT'),
         ('PT-S', 'PT-S'),
         ('FT-S', 'FT-S')
     ) 
 
-    ft_pt = ChoiceFilter(field_name="status", choices=STATUS, label= 'FT/PT')
+    lastname = CharFilter(field_name="lastname", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    certification = ChoiceFilter(field_name="certification", choices=CERTIFICATIONS,  label= 'Certification', widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
+    ft_pt = ChoiceFilter(field_name="status", choices=STATUS, label= 'FT/PT', widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
 
     class Meta:
         model = Responder
@@ -22,19 +30,51 @@ class ResponderFilter(django_filters.FilterSet):
 
 class CallFilter(django_filters.FilterSet):
 
-    location = CharFilter(field_name="location", lookup_expr="icontains")
-    call_date = DateFilter(field_name="datetime__date", label= 'Date', widget=DateTimeInput(attrs={'type': 'date'}))
-    red = BooleanFilter(field_name="red", label= 'Red', widget=CheckboxInput())
-
+    CALL_TYPES = (
+        ('A', 'A - ALLERGIC REACTION'),
+        ('B', 'B - BITE/STING'),
+        ('C', 'C - CARDIAC'),
+        ('E', 'E - EXPOSURE'),
+        ('F', 'F - FAINT'),
+        ('G', 'G - GUEST ASSISTANCE'),
+        ('H', 'H - HEAT RELATED'),
+        ('I', 'I - ILLNESS'),
+        ('R', 'R - RESPIRATORY'),
+        ('T', 'T - TRAUMA'),
+        ('U', 'U - UNKNOWN'),
+        ('X', 'X - SEIZURE')
+    )
+    call_date = DateFilter(field_name="datetime__date", label= 'Date', widget=DateTimeInput(attrs={'type': 'date', 'class': 'form-control ml-2 mr-2'}))
+    nature = ChoiceFilter(field_name="nature", choices=CALL_TYPES, widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
+    red = BooleanFilter(field_name="red", label= 'Red', widget=CheckboxInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    responder = ModelChoiceFilter(queryset=Responder.objects.all(), field_name="responder", widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
+    
     class Meta:
         model = Call
-        fields = ['call_date','nature', 'responder', 'red']
+        fields = ['red', 'call_date','nature', 'responder']
 
 
 class WalkinFilter(django_filters.FilterSet):
 
-    reason = CharFilter(field_name="reason", label= 'Reason', lookup_expr="icontains")
-    walkin_date = DateFilter(field_name="datetime__date", label= 'Date', widget=DateTimeInput(attrs={'type': 'date'}))
+    DEPARTMENTS = (
+        ('Culinary', 'Culinary'),
+        ('Education', 'Education'),
+        ('Entertainment', 'Entertainment'),
+        ('Games', 'Games'),
+        ('Grounds', 'Grounds'),
+        ('Guest Relations', 'Guest Relations'),
+        ('HR', 'HR'),
+        ('Maintenance', 'Maintenance'),
+        ('Merchandise', 'Merchandise'),
+        ('Security', 'Security'),
+        ('Traffic', 'Traffic'),
+        ('Zoo', 'Zoo'),
+    )
+    walkin_date = DateFilter(field_name="datetime__date", label= 'Date', widget=DateTimeInput(attrs={'type': 'date', 'class': 'form-control ml-2 mr-2'}))
+    lastname = CharFilter(field_name="lastname", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    department = ChoiceFilter(field_name="department", choices=DEPARTMENTS, widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
+    reason = CharFilter(field_name="reason", label= 'Reason', lookup_expr="icontains", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    
     
     class Meta:
         model = Walkin

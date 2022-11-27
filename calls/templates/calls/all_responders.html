@@ -10,11 +10,11 @@
 		</div>
 		<div class="card card-body">
 			<div class="row">
-				<form method="get">
+				<form method="get" class="form-inline">
 
 					{{ responderFilter.form }}
 
-					<button class="btn btn-primary" type="submit">Search</button>
+					<button class="btn btn-primary ml-2" type="submit">Search</button>
 				</form>
 				<a class="btn btn-success btn-lg btn-block ml-auto" id="new_responder_btn" href="{% url 'new_responder' %}">➕ New Responder</a>
 			</div>
