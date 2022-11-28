@@ -192,7 +192,8 @@ def newCall(request):
         form = CallForm(request.POST)
         if form.is_valid():
             obj = form.save(commit=False)
-            obj.upgrade_time = datetime.now().time()
+            if obj.red == True:
+                obj.upgrade_time = datetime.now().time()
             obj.save()
             return redirect('/')
 
