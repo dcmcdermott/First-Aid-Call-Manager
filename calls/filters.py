@@ -44,14 +44,25 @@ class CallFilter(django_filters.FilterSet):
         ('U', 'U - UNKNOWN'),
         ('X', 'X - SEIZURE')
     )
+    ZONES = (
+        ('701', '701'),
+        ('705', '705'),
+        ('710', '710'),
+        ('720', '720'),
+        ('730', '730'),
+        ('740', '740'),
+        ('745', '745'),
+    )
     call_date = DateFilter(field_name="datetime__date", label= 'Date', widget=DateTimeInput(attrs={'type': 'date', 'class': 'form-control ml-2 mr-2'}))
     nature = ChoiceFilter(field_name="nature", choices=CALL_TYPES, widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
-    red = BooleanFilter(field_name="red", label= 'Red', widget=CheckboxInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    zone = ChoiceFilter(field_name="zone", choices=ZONES, widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
+    location = CharFilter(field_name="location", label= 'Location', lookup_expr="icontains", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    red = BooleanFilter(field_name="red", widget=CheckboxInput(attrs={'class': 'form-control ml-2 mr-2'}))
     responder = ModelChoiceFilter(queryset=Responder.objects.all(), field_name="responder", widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
     
     class Meta:
         model = Call
-        fields = ['red', 'call_date','nature', 'responder']
+        fields = ['red', 'call_date','nature', 'zone', 'location', 'responder']
 
 
 class WalkinFilter(django_filters.FilterSet):

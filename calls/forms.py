@@ -10,10 +10,11 @@ from .models import *
 class CallForm(ModelForm):
     class Meta:
         model = Call
-        fields = ['red', 'nature', 'location', 'caller', 'responder']
+        fields = ['red', 'nature', 'zone', 'location', 'caller', 'responder']
         widgets = {
             'red': CheckboxInput(attrs={'type': 'checkbox', 'class': 'form-check', 'style': 'margin-bottom: 10px;'}),
             'nature': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'zone': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
             'location': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
             'caller': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
             'responder': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),

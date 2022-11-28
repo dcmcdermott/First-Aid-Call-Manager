@@ -42,10 +42,20 @@ class Call(models.Model):
         ('U', 'U - UNKNOWN'),
         ('X', 'X - SEIZURE')
     )
+    ZONES = (
+        ('701', '701'),
+        ('705', '705'),
+        ('710', '710'),
+        ('720', '720'),
+        ('730', '730'),
+        ('740', '740'),
+        ('745', '745'),
+    )
     datetime = models.DateTimeField(auto_now_add=True, null=True)
     nature = models.CharField(max_length=100, null=True, choices=CALL_TYPES)
     responder = models.ForeignKey(Responder, on_delete=models.SET_NULL, null=True)
     red = models.BooleanField(default=False, blank=True, null=True)
+    zone = models.CharField(max_length=100, choices=ZONES, null=True, blank=True)
     location = models.CharField(max_length=100, null=True)
     caller = models.CharField(max_length=100,default="SECURITY", null=True)
     on_scene_time = models.TimeField(default=None, blank=True, null=True)

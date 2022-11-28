@@ -24,6 +24,7 @@
 					<th>Date</th>
 					<th>Time</th>
 					<th>Nature</th>
+					<th>Zone</th>
                     <th>Location</th>
                     <th>Caller</th>
                     <th>Responder</th>
@@ -38,6 +39,7 @@
 						<td>{{ call.datetime|date:"m/d/y" }}</td>
 						<td>{{ call.datetime|time:"G:i" }}</td>
 						<td>{{ call.nature }}</td>
+						<td>{{ call.zone }}</td>
                         <td>{{ call.location }}</td>
                         <td>{{ call.caller }}</td>
 						<td>{{ call.responder_id }}</td>
