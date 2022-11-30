@@ -5,12 +5,14 @@
 {% block content %}
 
 <br>
+<br>
+<br>
 <div class="row>">
-    <div class="col-md-6">
-        <div class="card card-body" id="upgrade_btn">
+    <div class="col-md-12">
+        <div class="card card-body w-50 m-auto bg-info">
             <h5>Notes</h5>
         </div>
-        <div class="card card-body">
+        <div class="card card-body w-50 m-auto">
             <form action="" method="POST">
                 {% csrf_token %}
                 {{ form }}

@@ -5,14 +5,25 @@
 {% block content %}
 
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <div class="row>">
-    <div class="col-md-6">
-        <div class="card card-body">
-            <p>Cancel the "{{ item.nature }}" at {{ item.location }}?</p>
+    <div class="col-md-12">
+        <div class="card card-body w-50 m-auto bg-danger">
+            <h5>Cancel Call</h5>
+        </div>
+        <div class="card card-body w-50 m-auto">
+            <h4>Cancel the "{{ item.nature }}" at {{ item.location }}?</h4>
             <form action="{% url 'cancel' item.id %}" method="POST">
                 {% csrf_token %}
-                <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
-                <input class="btn btn-info" type="submit" name="Yes">
+                <br>
+                <div class="text-right">
+                    <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-info" type="submit" name="Yes">
+                </div>
             </form>
         </div>
     </div>

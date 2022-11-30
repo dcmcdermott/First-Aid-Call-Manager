@@ -5,14 +5,24 @@
 {% block content %}
 
 <br>
-<div class="row>">
-    <div class="col-md-6">
-        <div class="card card-body">
-            <p>Show "{{ item.responder }}" on scene at {{ item.location }} now?</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-body w-50 m-auto bg-primary">
+            <h5>On Scene</h5>
+        </div>
+        <div class="card card-body w-50 m-auto">
+            <h4>Show {{ item.responder }} on scene at {{ item.location }} now?</h4>
             <form action="{% url 'on_scene' item.id %}" method="POST">
                 {% csrf_token %}
-                <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
-                <input class="btn btn-info" type="submit" name="Yes">
+                <div class="text-right">
+                    <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-info" type="submit" name="Yes">
+                </div>
             </form>
         </div>
     </div>

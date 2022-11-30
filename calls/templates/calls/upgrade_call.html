@@ -6,16 +6,21 @@
 
 <br>
 <div class="row>">
-    <div class="col-md-6">
-        <div class="card card-body" id="upgrade_btn">
+    <div class="col-md-12">
+        <br>
+        <br>
+        <div class="card card-body w-50 m-auto" id="upgrade_btn">
             <h5>Upgrade Times</h5>
         </div>
-        <div class="card card-body">
+        <div class="card card-body w-50 m-auto">
             <form action="" method="POST">
                 {% csrf_token %}
                 {{ form }}
-                <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
-                <input class="btn btn-info" type="submit" name="Submit">
+                <div class="text-right">
+                    <br>
+                    <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-info" type="submit" name="Submit">
+                </div>
             </form>
         </div>
     </div>
