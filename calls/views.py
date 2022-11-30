@@ -40,6 +40,7 @@ def registerPage(request):
     context = {'form': form}
     return render(request, 'calls/register.html', context)
 
+
 # - Login
 @unauthenticated_user
 def loginPage(request):
@@ -59,12 +60,14 @@ def loginPage(request):
     context = {}
     return render(request, 'calls/login.html', context)
 
+
 # - Logout
 def logoutUser(request):
 
     logout(request)
 
     return redirect('login')
+
 
 # - User
 def userPage(request):
@@ -73,6 +76,7 @@ def userPage(request):
 
     return render(request, 'calls/user.html', context)
 
+
 ######### Dashboard ############\
 @login_required(login_url='login')
 @admin_only
@@ -80,12 +84,12 @@ def home(request):
 
     today = datetime.today().date()
 
-    calls = Call.objects.all().order_by('-datetime')[:9]
+    calls = Call.objects.all().order_by('-datetime')[:8]
     calls_today_count = Call.objects.filter(datetime__date=today).count()
     calls_mtd_count = Call.objects.filter(datetime__year=today.year, datetime__month=today.month).count()
     calls_ytd_count = Call.objects.filter(datetime__year=today.year).count()
 
-    walkins = Walkin.objects.all().order_by('-datetime')[:7]
+    walkins = Walkin.objects.all().order_by('-datetime')[:8]
     walkins_today_count = Walkin.objects.filter(datetime__date=today).count()
     walkins_mtd_count = Walkin.objects.filter(datetime__year=today.year, datetime__month=today.month).count()
     walkins_ytd_count = Walkin.objects.filter(datetime__year=today.year).count()
@@ -102,6 +106,7 @@ def home(request):
         'walkins_ytd_count': walkins_ytd_count, 
         }
     return render(request, 'calls/dashboard.html', context)
+
 
 ######### RESPONDERS #########
 # - All Responders
@@ -126,6 +131,7 @@ def allResponders(request):
             }
     return render(request, 'calls/all_responders.html', context)
 
+
 # - New Responder
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
@@ -141,6 +147,7 @@ def newResponder(request):
 
     context = {'form': form}
     return render(request, 'calls/responder_form.html', context)
+
 
 # - Update Responder
 @login_required(login_url='login')
@@ -158,6 +165,7 @@ def updateResponder(request, pk):
     
     context = {'form': form}
     return render(request, 'calls/responder_form.html', context)
+
 
 ######### CALLS #########
 # - All Calls
@@ -181,6 +189,7 @@ def allCalls(request):
             }
     return render(request, 'calls/all_calls.html', context)
 
+
 # - New Call
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
@@ -200,6 +209,7 @@ def newCall(request):
     context = {'form': form}
     return render(request, 'calls/call_form.html', context)
 
+
 # - On Scene
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
@@ -214,6 +224,7 @@ def onScene(request, pk):
     
     context = {'item': call}
     return render(request, 'calls/on_scene.html', context)
+
 
 # - Upgrade Call
 @login_required(login_url='login')
@@ -266,6 +277,7 @@ def cancelCall(request, pk):
     context = {'item': call}
     return render(request, 'calls/cancel.html', context)
 
+
 ######### WALKINS #########
 # - All Walkins
 @login_required(login_url='login')
@@ -288,6 +300,7 @@ def allWalkins(request):
             }
     return render(request, 'calls/all_walkins.html', context)
 
+
 # - New Walkin
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
@@ -304,6 +317,7 @@ def newWalkin(request):
     context = {'form': form}
     return render(request, 'calls/walkin_form.html', context)
 
+
 # - Ambassador Sign in
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
@@ -319,9 +333,9 @@ def ambassadorSignin(request):
             
             return redirect('/ambassador_signin')
         
-
     context = {'form': form}
     return render(request, 'calls/ambassador_signin_form.html', context)
+
 
 # - Walkin
 @login_required(login_url='login')
@@ -338,6 +352,7 @@ def walkins(request, pk):
             'total_visits': total_visits,
             }
     return render(request, 'calls/walkins.html', context)
+
 
 # - Walkin Notes
 @login_required(login_url='login')
