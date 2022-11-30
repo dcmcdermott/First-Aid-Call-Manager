@@ -30,8 +30,8 @@
 				</tr>				
 				{% for walkin in walkins %}
 					<tr>
-						<td>{{ walkin.datetime.date }}</td>
-						<td>{{ walkin.datetime.time }}</td>
+						<td>{{ walkin.datetime|date:"m/d/y" }}</td>
+						<td>{{ walkin.datetime|time:"G:i" }}</td>
 						<td>{{ walkin.firstname }}</td>
                         <td>{{ walkin.lastname }}</td>
                         <td>{{ walkin.department }}</td>

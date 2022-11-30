@@ -80,7 +80,7 @@
                         {% if call.cancel_time is Null and call.datetime.date < today or call.on_scene_time is not Null %}
                             <td>&nbsp&nbsp------</td>
                         {% elif call.cancel_time is Null %}
-                            <td><a class="btn btn-sm" id="cancel_btn" href="{% url 'cancel' call.id %}">&nbsp<img src="{% static 'images/cancel.png' %}" class= id="cancel_logo"></a></td>
+                            <td><a class="btn btn-sm" id="cancel_btn" href="{% url 'cancel' call.id %}">&nbsp&nbsp<img src="{% static 'images/cancel.png' %}" class= id="cancel_logo"></a></td>
                         {% else %}
                         <td>&nbsp&nbsp{{ call.cancel_time|time:"G:i" }}</td>
                         {% endif %}

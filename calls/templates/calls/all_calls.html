@@ -43,11 +43,11 @@
                         <td>{{ call.location }}</td>
                         <td>{{ call.caller }}</td>
 						<td>{{ call.responder_id }}</td>
-						<td>{{ call.on_scene_time }}</td>
-                        <td>{{ call.upgrade_time }}</td>
-                        <td>{{ call.ems_on_scene_time }}</td>
-                        <td>{{ call.ems_clear_scene_time }}</td>
-						<td>{{ call.cancel_time }}</td>
+						<td>{% if call.on_scene_time %}{{ call.on_scene_time|time:"G:i" }}{% else %}------{% endif %}</td>
+                        <td>{% if call.upgrade_time %}{{ call.upgrade_time|time:"G:i" }}{% else %}------{% endif %}</td>
+                        <td>{% if call.ems_on_scene_time %}{{ call.ems_on_scene_time|time:"G:i" }}{% else %}------{% endif %}</td>
+                        <td>{% if call.ems_clear_scene_time %}{{ call.ems_clear_scene_time|time:"G:i" }}{% else %}------{% endif %}</td>
+						<td>{% if call.cancel_time %}{{ call.cancel_time|time:"G:i" }}{% else %}------{% endif %}</td>
 					</tr>
 				{% endfor %}
 			</table>
