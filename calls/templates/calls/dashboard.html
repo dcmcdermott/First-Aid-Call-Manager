@@ -10,7 +10,7 @@
 <br>
 <div class="row">
     <div class="col-md-5">
-        <h5>&nbsp AMB walk-ins</h5>
+        <h5>&nbsp AMB Walk-Ins</h5>
         <hr>
         <div class="card card-body ml-2">
             <a class="btn btn-info btn-sm btn-block" href="{% url 'new_walkin' %}">New Walkin</a>
@@ -53,10 +53,10 @@
                         <td>{{ call.datetime|date:"m/d/y" }}</td>
                         <td>{{ call.datetime|localtime|time:"G:i" }}</td>
                         {# Change Nature Link #}
-                        {% if call.datetime.date < today %}
+                        {% if call.datetime < time_threshold %}
                             <td><a method="" class="btn btn-sm btn-link text-dark w-100" href="">{{ call.nature }}</a></td>
                         {% else %}
-                            <td><a method="POST" class="btn btn-sm btn-link text-dark font-weight-bold w-100" href="{% url 'downgrade_call' call.id %}">{{ call.nature }}</a></td> 
+                            <td><a method="POST" class="btn btn-sm btn-link font-weight-bold w-100" href="{% url 'downgrade_call' call.id %}">{{ call.nature }}</a></td> 
                         {% endif %}
                         <td>{{ call.location }}</td>
                         <td>{{ call.responder }}</td>
@@ -69,7 +69,7 @@
 				    		<td>{{ call.on_scene_time|time:"G:i" }}</td>
 				    	{% endif %}
                         {# Upgrade Button #}
-                        {% if call.upgrade_time is Null and call.ems_on_scene_time is Null and call.ems_clear_scene_time is Null and call.datetime.date < today or call.cancel_time is not Null %}
+                        {% if call.upgrade_time is Null and call.ems_on_scene_time is Null and call.ems_clear_scene_time is Null and call.datetime < time_threshold or call.cancel_time is not Null %}
                             <td>None</td>
                         {% elif call.upgrade_time is Null or call.ems_on_scene_time is Null or call.ems_clear_scene_time is Null %}
                             <td><a class="btn btn-sm btn-warning w-100" id="upgrade_btn" href="{% url 'upgrade_call' call.id %}">Upgrade</a></td>

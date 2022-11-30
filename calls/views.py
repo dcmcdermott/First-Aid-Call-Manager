@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.utils.timezone import datetime
+from django.utils import timezone
+from django.utils.timezone import datetime, timedelta
 from django.core.paginator import Paginator
 
 from django.contrib.auth import authenticate, login, logout
@@ -78,10 +79,11 @@ def userPage(request):
 
 ######### Dashboard ############\
 @login_required(login_url='login')
-@admin_only
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def home(request):
 
-    today = datetime.today().date()
+    today = timezone.now()
+    time_threshold = today - timedelta(hours=2)
 
     calls = Call.objects.all().order_by('-datetime')[:8]
     calls_today_count = Call.objects.filter(datetime__date=today).count()
@@ -95,6 +97,7 @@ def home(request):
 
     context = {
         'today': today,
+        'time_threshold': time_threshold,
         'calls': calls,
         'walkins': walkins,
         'calls_today_count': calls_today_count,
