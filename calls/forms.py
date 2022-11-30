@@ -67,6 +67,15 @@ class UpgradeForm(ModelForm):
             'ems_clear_scene_time': TimeInput(attrs={'type': 'time', 'class': 'form-control', 'style': 'margin-bottom: 10px;'})
         }
 
+        
+class DowngradeForm(ModelForm):
+    class Meta:
+        model = Call
+        fields = ['nature'] 
+        widgets = {
+            'nature': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'})
+        }
+        
 
 class CreateUserForm(UserCreationForm):
     class Meta:

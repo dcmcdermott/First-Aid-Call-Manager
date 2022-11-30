@@ -16,6 +16,7 @@ urlpatterns = [
     path('new_call/', views.newCall, name='new_call'),
     path('upgrade_call/<str:pk>/', views.upgradeCall, name='upgrade_call'),
     path('on_scene/<str:pk>/', views.onScene, name='on_scene'),
+    path('downgrade_call/<str:pk>/', views.downgradeCall, name='downgrade_call'),
     path('cancel/<str:pk>/', views.cancelCall, name='cancel'),
     # Walkins
     path('walkins/', views.allWalkins, name="all_walkins"),

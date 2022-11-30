@@ -52,7 +52,11 @@
                     <tr>
                         <td>{{ call.datetime|date:"m/d/y" }}</td>
                         <td>{{ call.datetime|localtime|time:"G:i" }}</td>
-                        <td>{{ call.nature }}</td>
+                        {% if call.datetime.date < today %}
+                            <td><a method="" class="btn btn-sm btn-link text-dark w-100" href="">{{ call.nature }}</a></td>
+                        {% else %}
+                            <td><a method="POST" class="btn btn-sm btn-link text-dark font-weight-bold w-100" href="{% url 'downgrade_call' call.id %}">{{ call.nature }}</a></td> 
+                        {% endif %}
                         <td>{{ call.location }}</td>
                         <td>{{ call.responder }}</td>
                         {# On Scene Button #}

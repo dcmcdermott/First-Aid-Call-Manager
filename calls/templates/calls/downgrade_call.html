@@ -8,9 +8,10 @@
 <div class="row>">
     <div class="col-md-6">
         <div class="card card-body">
-            <p>Show "{{ item.responder }}" on scene at {{ item.location }} now?</p>
-            <form action="{% url 'on_scene' item.id %}" method="POST">
+            <p>Change the nature of the "{{ call.nature }}" at {{ call.location }}?</p>
+            <form method="POST">
                 {% csrf_token %}
+                {{ form }}
                 <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
                 <input class="btn btn-info" type="submit" name="Yes">
             </form>

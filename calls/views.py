@@ -232,6 +232,25 @@ def upgradeCall(request, pk):
     context = {'form': form}
     return render(request, 'calls/upgrade_call.html', context)
 
+
+# - Downgrade Call
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
+def downgradeCall(request, pk):
+
+    call = Call.objects.get(id=pk)
+    form = DowngradeForm(instance=call)
+
+    if request.method == 'POST':
+        form = DowngradeForm(request.POST, instance=call)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    
+    context = {'form': form, 'call': call}
+    return render(request, 'calls/downgrade_call.html', context)
+
+
 # - Cancel
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
