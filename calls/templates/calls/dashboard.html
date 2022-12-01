@@ -64,7 +64,7 @@
                         {% if call.cancel_time is not Null and call.on_scene_time is Null %}
                             <td>cancelled</td>
                         {% elif call.on_scene_time is Null and call.cancel_time is Null %}
-                            <td><a method="POST" class="btn btn-sm btn-success w-100 shadow-sm" id="on_scene_btn" href="{% url 'on_scene' call.id %}">On Scene</a></td>
+                            <td><a method="POST" class="btn btn-sm btn-success w-100 shadow" id="on_scene_btn" href="{% url 'on_scene' call.id %}">On Scene</a></td>
 				    	{% else %}
 				    		<td>{{ call.on_scene_time|time:"G:i" }}</td>
 				    	{% endif %}
@@ -72,7 +72,7 @@
                         {% if call.upgrade_time is Null and call.ems_on_scene_time is Null and call.ems_clear_scene_time is Null and call.datetime < time_threshold or call.cancel_time is not Null %}
                             <td>None</td>
                         {% elif call.upgrade_time is Null or call.ems_on_scene_time is Null or call.ems_clear_scene_time is Null %}
-                            <td><a class="btn btn-sm btn-warning w-100 shadow-sm" id="upgrade_btn" href="{% url 'upgrade_call' call.id %}">Upgrade</a></td>
+                            <td><a class="btn btn-sm btn-warning w-100 shadow" id="upgrade_btn" href="{% url 'upgrade_call' call.id %}">Upgrade</a></td>
 				    	{% elif call.upgrade_time != Null and call.ems_clear_scene_time != Null and call.ems_clear_scene_time != Null %}
 				    		    <td>{{ call.upgrade_time|time:"G:i" }}/{{ call.ems_on_scene_time|time:"G:i" }}/{{ call.ems_clear_scene_time|time:"G:i" }}</td>
 				    	{% endif %}
