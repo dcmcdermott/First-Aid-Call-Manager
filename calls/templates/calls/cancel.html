@@ -12,17 +12,17 @@
 <br>
 <div class="row>">
     <div class="col-md-12">
-        <div class="card card-body w-50 m-auto bg-danger">
+        <div class="card card-body w-50 m-auto bg-danger shadow">
             <h5>Cancel Call</h5>
         </div>
-        <div class="card card-body w-50 m-auto">
+        <div class="card card-body w-50 m-auto shadow">
             <h4>Cancel the "{{ item.nature }}" at {{ item.location }}?</h4>
             <form action="{% url 'cancel' item.id %}" method="POST">
                 {% csrf_token %}
                 <br>
                 <div class="text-right">
-                    <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
-                    <input class="btn btn-info" type="submit" name="Yes">
+                    <a class="btn btn-warning shadow" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-info shadow" type="submit" name="Yes">
                 </div>
             </form>
         </div>

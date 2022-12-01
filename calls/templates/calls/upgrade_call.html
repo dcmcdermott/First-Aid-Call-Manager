@@ -9,17 +9,17 @@
     <div class="col-md-12">
         <br>
         <br>
-        <div class="card card-body w-50 m-auto" id="upgrade_btn">
+        <div class="card card-body w-50 m-auto shadow" id="upgrade_btn">
             <h5>Upgrade Times</h5>
         </div>
-        <div class="card card-body w-50 m-auto">
+        <div class="card card-body w-50 m-auto shadow">
             <form action="" method="POST">
                 {% csrf_token %}
                 {{ form }}
                 <div class="text-right">
                     <br>
-                    <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
-                    <input class="btn btn-info" type="submit" name="Submit">
+                    <a class="btn btn-warning shadow" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-info shadow" type="submit" name="Submit">
                 </div>
             </form>
         </div>
