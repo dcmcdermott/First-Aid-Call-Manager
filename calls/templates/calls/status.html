@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col">
 		<div class="col-md">
-			<div class="card text-center ml-5 mr-5 shadow" id="today_total">
+			<div class="card text-center ml-5 mr-5 shadow">
 			  	<div class="card-header">
 			  		<h5 class="card-title">stub</h5>
 			  	</div>
@@ -14,32 +14,30 @@
 		</div>
 	</div>
 	<div class="col">
-		<div class="col-md">
-			<div class="card text-center text-white mb-1 ml-5 mr-5 shadow" id="ytd_total">
-				<table class="table table-sm">
+			<div class="card text-center text-white ml-5 mr-5 p-1 shadow">
+				<table class="table table-sm mb-0">
 					<tr class="bg-dark text-white">
 						<th>🗓</th>
 						<th>AWI</th>
 						<th>CFS</th>
 					</tr>
-					<tr>
+					<tr class="gray-row">
 						<td>{{ today.year }}</td>                       
 						<td>{{ walkins_ytd_count }}</td>
 						<td>{{ calls_ytd_count }}</td>
 					</tr>
-					<tr>
+					<tr class="gray-row">
 						<td>{{ today|date:"M" }}</td>                       
 						<td>{{ walkins_mtd_count }}</td>
 						<td>{{ calls_mtd_count }}</td>
 					</tr>
-					<tr class="font-weight-bold">
+					<tr class="font-weight-bold" id="today">
 						<td>today</td>                       
 						<td>{{ walkins_today_count }}</td>
 						<td>{{ calls_today_count }}</td>
 					</tr>
 				</table>
 			</div>
-		</div>
 	</div>
 	<div class="col">
 		<div class="card text-center text-white ml-5 mr-5 shadow" id="mtd_total">
