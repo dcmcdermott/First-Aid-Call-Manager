@@ -95,6 +95,16 @@ def home(request):
     walkins_mtd_count = Walkin.objects.filter(datetime__year=today.year, datetime__month=today.month).count()
     walkins_ytd_count = Walkin.objects.filter(datetime__year=today.year).count()
 
+    todays_calls = Call.objects.all().filter(datetime__date=today)
+    z_701 = todays_calls.filter(zone='701').count()
+    z_705 = todays_calls.filter(zone='705').count()
+    z_710 = todays_calls.filter(zone='710').count()
+    z_720 = todays_calls.filter(zone='720').count()
+    z_725 = todays_calls.filter(zone='725').count()
+    z_730 = todays_calls.filter(zone='730').count()
+    z_740 = todays_calls.filter(zone='740').count()
+    z_745 = todays_calls.filter(zone='745').count()
+
     context = {
         'today': today,
         'time_threshold': time_threshold,
@@ -105,7 +115,15 @@ def home(request):
         'calls_ytd_count': calls_ytd_count,
         'walkins_today_count': walkins_today_count, 
         'walkins_mtd_count': walkins_mtd_count,
-        'walkins_ytd_count': walkins_ytd_count, 
+        'walkins_ytd_count': walkins_ytd_count,
+        'z_701': z_701,
+        'z_705': z_705,
+        'z_710': z_710,
+        'z_720': z_720,
+        'z_725': z_725,
+        'z_730': z_730,
+        'z_740': z_740,
+        'z_745': z_745, 
         }
     return render(request, 'calls/dashboard.html', context)
 
@@ -339,19 +357,6 @@ def ambassadorSignin(request):
     return render(request, 'calls/ambassador_signin_form.html', context)
 
 
-# - Reporting
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['Admin', 'Supervisors'])
-def reporting(request):
-
-    # 
-
-    context = {
-            
-            }
-    return render(request, 'calls/reporting.html', context)
-
-
 # - Walkin Notes
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
@@ -368,3 +373,32 @@ def walkinNotes(request, pk):
     
     context = {'form': form}
     return render(request, 'calls/walkin_notes.html', context)
+
+
+######### REPORTING #########
+# - Reporting
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
+def reporting(request):
+
+    calls = Call.objects.all()
+    z_701 = calls.filter(zone='701').count()
+    z_705 = calls.filter(zone='705').count()
+    z_710 = calls.filter(zone='710').count()
+    z_720 = calls.filter(zone='720').count()
+    z_725 = calls.filter(zone='725').count()
+    z_730 = calls.filter(zone='730').count()
+    z_740 = calls.filter(zone='740').count()
+    z_745 = calls.filter(zone='745').count()
+
+    context = {
+            'z_701': z_701,
+            'z_705': z_705,
+            'z_710': z_710,
+            'z_720': z_720,
+            'z_725': z_725,
+            'z_730': z_730,
+            'z_740': z_740,
+            'z_745': z_745,
+            }
+    return render(request, 'calls/reporting.html', context)

@@ -2,19 +2,6 @@ body {
     background-color: #c5cfde;
 }
 
-#today_total {
-    background-color: #a9cce2;
-    color: #c5cfde;
-}
-
-#mtd_total {
-    background-color: #a9cce2;
-}
-
-#ytd_total {
-    background-color: #a9cce2;
-}
-
 #upgrade_btn {
     background-color: #faa107;
 }

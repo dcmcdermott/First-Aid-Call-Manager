@@ -1,8 +1,9 @@
+
 <br>
 <div class="row">
 	<div class="col">
 		<div class="col-md">
-			<div class="card text-center text-white  mb-1 shadow" id="today_total">
+			<div class="card text-center ml-5 mr-5 shadow" id="today_total">
 			  	<div class="card-header">
 			  		<h5 class="card-title">stub</h5>
 			  	</div>
@@ -14,26 +15,13 @@
 	</div>
 	<div class="col">
 		<div class="col-md">
-			<div class="card text-center text-white  mb-1 shadow" id="mtd_total">
-			  	<div class="card-header">
-					<h5 class="card-title">stub</h5>
-			  	</div>
-			  	<div class="card-body">
-					<h3 class="card-title">stub</h3>
-			  	</div>
-			</div>
-		</div>
-	</div>
-	<div class="col">
-		<div class="col-md">
 			<div class="card text-center text-white mb-1 ml-5 mr-5 shadow" id="ytd_total">
 				<table class="table table-sm">
-					<tr>
+					<tr class="bg-dark text-white">
 						<th>🗓</th>
 						<th>AWI</th>
 						<th>CFS</th>
 					</tr>
-
 					<tr>
 						<td>{{ today.year }}</td>                       
 						<td>{{ walkins_ytd_count }}</td>
@@ -50,6 +38,57 @@
 						<td>{{ calls_today_count }}</td>
 					</tr>
 				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card text-center text-white ml-5 mr-5 shadow" id="mtd_total">
+			<div class="card-body">
+				<div>
+					<canvas class="w-75 h-25 m-auto" id="barChart"></canvas>
+				</div>
+				<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+				<script>
+				const ctx = document.getElementById('barChart');
+				new Chart(ctx, {
+				  	type: 'bar',
+				  	data: {
+						labels: ['701', '705', '710', '720', '725', '730', '740', '745'],
+						datasets: [{
+					  		label: 'Calls - today',
+					  		data: [{{ z_701 }}, {{ z_705 }}, {{ z_710 }}, {{ z_720 }}, {{ z_725 }}, {{ z_730 }}, {{ z_740 }}, {{ z_745 }}],
+					  		backgroundColor: [
+    							  'rgba(255, 99, 132, 0.2)',
+    							  'rgba(255, 159, 64, 0.2)',
+    							  'rgba(255, 205, 86, 0.2)',
+    							  'rgba(75, 192, 192, 0.2)',
+    							  'rgba(54, 162, 235, 0.2)',
+    							  'rgba(153, 102, 255, 0.2)',
+								  'rgba(0, 250, 229, 0.2)',
+    							  'rgba(201, 203, 207, 0.2)'
+    						],
+    						borderColor: [
+    					  		'rgb(255, 99, 132)',
+    					  		'rgb(255, 159, 64)',
+    					  		'rgb(255, 205, 86)',
+    					  		'rgb(75, 192, 192)',
+    					  		'rgb(54, 162, 235)',
+    					  		'rgb(153, 102, 255)',
+						  		'rgb(0, 250, 229)',
+    					  		'rgb(201, 203, 207)'
+    						],
+					  		borderWidth: 1
+						}]
+				  	},
+				  	options: {
+						scales: {
+					  		y: {
+								beginAtZero: true
+					  		}
+						}
+				  	}
+				});
+				</script>
 			</div>
 		</div>
 	</div>

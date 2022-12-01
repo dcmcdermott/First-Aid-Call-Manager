@@ -2,27 +2,70 @@
 
 {% block content %}
 
+<head>
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <br>
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
 			<h5>Reporting</h5>
-			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update</a>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete</a>
 		</div>
 	</div>
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Information</h5>
-		
+			<h5 class="text-center">Total Calls by Zone</h5>
+			<div>
+				<canvas class="w-75 h-75 m-auto" id="barChart"></canvas>
+			</div>
+			<script>
+			const ctx = document.getElementById('barChart');
+			new Chart(ctx, {
+				type: 'doughnut',
+				data: {
+					labels: ['701', '705', '710', '720', '725', '730', '740', '745'],
+					datasets: [{
+				  		label: '# of Calls',
+				  		data: [{{ z_701 }}, {{ z_705 }}, {{ z_710 }}, {{ z_720 }}, {{ z_725 }}, {{ z_730 }}, {{ z_740 }}, {{ z_745 }}],
+				  		backgroundColor: [
+    						'rgba(255, 99, 132, 0.2)',
+    						'rgba(255, 159, 64, 0.2)',
+    						'rgba(255, 205, 86, 0.2)',
+    						'rgba(75, 192, 192, 0.2)',
+    						'rgba(54, 162, 235, 0.2)',
+    						'rgba(153, 102, 255, 0.2)',
+    						'rgba(0, 250, 229, 0.2)',
+							'rgba(201, 203, 207, 0.2)'
+    					],
+    					borderColor: [
+    						'rgb(255, 99, 132)',
+    						'rgb(255, 159, 64)',
+    						'rgb(255, 205, 86)',
+    						'rgb(75, 192, 192)',
+    						'rgb(54, 162, 235)',
+    						'rgb(153, 102, 255)',
+    						'rgb(0, 250, 229)',
+							'rgb(201, 203, 207)'
+    					],
+				  		borderWidth: 1
+					}]
+			  	},
+			  	options: {
+					scales: {
+				  		y: {
+						beginAtZero: true
+				  		}
+					}
+			  	}
+			});
+			</script>
 		</div>
 	</div>
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Total Visits</h5>
+			<h5>Pie Chart?</h5>
 			<hr>
-			
 		</div>
 	</div>
 </div>
@@ -32,10 +75,6 @@
 		<div class="card card-body">
 			<table class="table table-sm">
 				<tr>
-					<th>Date</th>
-					<th>Time</th>
-					<th>Reason</th>
-					<th>Notes</th>
 				</tr>
 			</table>
 		</div>
