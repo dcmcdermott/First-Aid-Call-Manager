@@ -339,21 +339,17 @@ def ambassadorSignin(request):
     return render(request, 'calls/ambassador_signin_form.html', context)
 
 
-# - Walkin
+# - Reporting
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
-def walkins(request, pk):
+def reporting(request):
 
-    walkin = Walkin.objects.get(id=pk)
-    visits = Walkin.objects.filter(firstname=walkin.firstname, lastname=walkin.lastname).order_by('-datetime').values()
-    total_visits = visits.count()
+    # 
 
     context = {
-            'walkin': walkin, 
-            'visits': visits, 
-            'total_visits': total_visits,
+            
             }
-    return render(request, 'calls/walkins.html', context)
+    return render(request, 'calls/reporting.html', context)
 
 
 # - Walkin Notes
