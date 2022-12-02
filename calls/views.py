@@ -391,6 +391,36 @@ def reporting(request):
     z_740 = calls.filter(zone='740').count()
     z_745 = calls.filter(zone='745').count()
 
+    yellows = calls.filter(upgrade_time=None)
+    y_701 = yellows.filter(zone='701').count()
+    y_705 = yellows.filter(zone='705').count()
+    y_710 = yellows.filter(zone='710').count()
+    y_720 = yellows.filter(zone='720').count()
+    y_725 = yellows.filter(zone='725').count()
+    y_730 = yellows.filter(zone='730').count()
+    y_740 = yellows.filter(zone='740').count()
+    y_745 = yellows.filter(zone='745').count()
+
+    oranges = calls.exclude(upgrade_time=None)
+    o_701 = oranges.filter(zone='701').count()
+    o_705 = oranges.filter(zone='705').count()
+    o_710 = oranges.filter(zone='710').count()
+    o_720 = oranges.filter(zone='720').count()
+    o_725 = oranges.filter(zone='725').count()
+    o_730 = oranges.filter(zone='730').count()
+    o_740 = oranges.filter(zone='740').count()
+    o_745 = oranges.filter(zone='745').count()
+
+    reds = calls.exclude(red=False)
+    r_701 = reds.filter(zone='701').count()
+    r_705 = reds.filter(zone='705').count()
+    r_710 = reds.filter(zone='710').count()
+    r_720 = reds.filter(zone='720').count()
+    r_725 = reds.filter(zone='725').count()
+    r_730 = reds.filter(zone='730').count()
+    r_740 = reds.filter(zone='740').count()
+    r_745 = reds.filter(zone='745').count()
+
     context = {
             'z_701': z_701,
             'z_705': z_705,
@@ -400,5 +430,29 @@ def reporting(request):
             'z_730': z_730,
             'z_740': z_740,
             'z_745': z_745,
+            'y_701': y_701,
+            'y_705': y_705,
+            'y_710': y_710,
+            'y_720': y_720,
+            'y_725': y_725,
+            'y_730': y_730,
+            'y_740': y_740,
+            'y_745': y_745,
+            'o_701': o_701,
+            'o_705': o_705,
+            'o_710': o_710,
+            'o_720': o_720,
+            'o_725': o_725,
+            'o_730': o_730,
+            'o_740': o_740,
+            'o_745': o_745,
+            'r_701': r_701,
+            'r_705': r_705,
+            'r_710': r_710,
+            'r_720': r_720,
+            'r_725': r_725,
+            'r_730': r_730,
+            'r_740': r_740,
+            'r_745': r_745,
             }
     return render(request, 'calls/reporting.html', context)

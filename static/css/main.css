@@ -29,3 +29,15 @@ body {
 .gray-row {
     background-color: rgba(201, 203, 207, 0.2);
 }
+
+.yellow {
+    background-color: rgba(255, 205, 86, 0.5);
+}
+
+.orange {
+    background-color: rgba(255, 159, 64, 0.5);
+}
+
+.red {
+    background-color: rgba(255, 99, 132, 0.5);
+}

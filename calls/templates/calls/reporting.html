@@ -10,11 +10,11 @@
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Reporting</h5>
+			<h5>Stub</h5>
 		</div>
 	</div>
 	<div class="col-md">
-		<div class="card card-body">
+		<div class="card card-body mb-3">
 			<h5 class="text-center">Total Calls by Zone</h5>
 			<div>
 				<canvas class="w-75 h-75 m-auto" id="barChart"></canvas>
@@ -29,20 +29,20 @@
 				  		label: '# of Calls',
 				  		data: [{{ z_701 }}, {{ z_705 }}, {{ z_710 }}, {{ z_720 }}, {{ z_725 }}, {{ z_730 }}, {{ z_740 }}, {{ z_745 }}],
 				  		backgroundColor: [
-    						'rgba(255, 99, 132, 0.2)',
-    						'rgba(255, 159, 64, 0.2)',
-    						'rgba(255, 205, 86, 0.2)',
-    						'rgba(75, 192, 192, 0.2)',
-    						'rgba(54, 162, 235, 0.2)',
-    						'rgba(153, 102, 255, 0.2)',
-    						'rgba(0, 250, 229, 0.2)',
-							'rgba(201, 203, 207, 0.2)'
+    						'rgba(255, 99, 132, 1)',
+    						'rgba(255, 159, 64, 1)',
+    						'rgba(255, 205, 86, 1)',
+    						'rgba(17, 171, 22, 1)',
+    						'rgba(54, 162, 235, 1)',
+    						'rgba(153, 102, 255, 1)',
+    						'rgba(0, 250, 229, 1)',
+							'rgba(201, 203, 207, 1)'
     					],
     					borderColor: [
     						'rgb(255, 99, 132)',
     						'rgb(255, 159, 64)',
     						'rgb(255, 205, 86)',
-    						'rgb(75, 192, 192)',
+    						'rgb(17, 171, 22)',
     						'rgb(54, 162, 235)',
     						'rgb(153, 102, 255)',
     						'rgb(0, 250, 229)',
@@ -64,17 +64,57 @@
 	</div>
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Pie Chart?</h5>
-			<hr>
+			<h5>Stub</h5>
 		</div>
 	</div>
 </div>
-<br>
 <div class="row">
-	<div class="col-md">
-		<div class="card card-body">
-			<table class="table table-sm">
+	<div class="col-md-7 m-auto">
+		<div class="card card-body ml-5 p-0 mr-5">
+			<table class="table table-sm m-0">
 				<tr>
+					<th>Grade</th>
+					<th>701</th>
+					<th>705</th>
+					<th>710</th>
+					<th>720</th>
+					<th>725</th>
+					<th>730</th>
+					<th>740</th>
+					<th>745</th>
+				</tr>
+				<tr class="yellow">
+					<td>Yellow</td>
+					<td>&nbsp{{ y_701 }}</td>
+					<td>&nbsp{{ y_705 }}</td>
+					<td>&nbsp{{ y_710 }}</td>
+					<td>&nbsp{{ y_720 }}</td>
+					<td>&nbsp{{ y_725 }}</td>
+					<td>&nbsp{{ y_730 }}</td>
+					<td>&nbsp{{ y_740 }}</td>
+					<td>&nbsp{{ y_745 }}</td>
+				</tr>
+				<tr class="orange">
+					<td>Orange</td>
+					<td>&nbsp{{ o_701 }}</td>
+					<td>&nbsp{{ o_705 }}</td>
+					<td>&nbsp{{ o_710 }}</td>
+					<td>&nbsp{{ o_720 }}</td>
+					<td>&nbsp{{ o_725 }}</td>
+					<td>&nbsp{{ o_730 }}</td>
+					<td>&nbsp{{ o_740 }}</td>
+					<td>&nbsp{{ o_745 }}</td>
+				</tr>
+				<tr class="red">
+					<td>Red</td>
+					<td>&nbsp{{ r_701 }}</td>
+					<td>&nbsp{{ r_705 }}</td>
+					<td>&nbsp{{ r_710 }}</td>
+					<td>&nbsp{{ r_720 }}</td>
+					<td>&nbsp{{ r_725 }}</td>
+					<td>&nbsp{{ r_730 }}</td>
+					<td>&nbsp{{ r_740 }}</td>
+					<td>&nbsp{{ r_745 }}</td>
 				</tr>
 			</table>
 		</div>
