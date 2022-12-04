@@ -41,3 +41,7 @@ body {
 .red {
     background-color: rgba(255, 99, 132, 0.5);
 }
+
+.gray {
+    background-color: #f4f5f8;
+}

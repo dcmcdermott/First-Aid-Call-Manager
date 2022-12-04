@@ -23,7 +23,7 @@
                     <th>Notes</th>
                 </tr>
                 {% for walkin in walkins %}
-                <tr class="shadow-sm">     
+                <tr class="shadow-sm {% if walkin.datetime < time_threshold %}gray{% endif %}">     
                     <td>{{ walkin.datetime|date:"m/d" }} &nbsp {{ walkin.datetime|localtime|time:"G:i" }}</td>                  
                     <td>{{ walkin.firstname }}</td>
                     <td>{{ walkin.lastname }}</td>
@@ -51,7 +51,7 @@
                     <th>Cancel</th>
                 </tr>
                 {% for call in calls %}
-                    <tr class="shadow-sm">
+                    <tr class="shadow-sm {% if call.datetime < time_threshold %}gray{% endif %}">
                         <td>{{ call.datetime|date:"m/d/y" }}</td>
                         <td>{{ call.datetime|localtime|time:"G:i" }}</td>
                         {# Change Nature Link #}
