@@ -1,5 +1,5 @@
 from django.forms import ModelForm, TimeInput, TextInput, Textarea
-from django.forms.widgets import CheckboxInput, Select, EmailInput
+from django.forms.widgets import CheckboxInput, Select, EmailInput, DateInput
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -45,7 +45,7 @@ class WalkinNotesForm(ModelForm):
 class ResponderForm(ModelForm):
     class Meta:
         model = Responder
-        fields = ['firstname', 'lastname', 'certification', 'status', 'phone', 'email', 'license_scan', 'active']
+        fields = ['firstname', 'lastname', 'certification', 'status', 'phone', 'email', 'license_scan', 'cpr_scan', 'cpr_expiration', 'active']
         widgets = {
             'firstname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
             'lastname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
@@ -53,6 +53,7 @@ class ResponderForm(ModelForm):
             'status': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
             'phone': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
             'email': EmailInput(attrs={'type': 'email', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'cpr_expiration': DateInput(attrs={'type': 'date', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
             'active': CheckboxInput(attrs={'type': 'checkbox', 'class': 'form-check', 'style': 'margin-bottom: 10px;'}),
         }
        
