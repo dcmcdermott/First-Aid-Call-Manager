@@ -49,3 +49,7 @@ body {
 .gray {
     background-color: #f4f5f8;
 }
+
+.small {
+    font-size: 10px;
+}
