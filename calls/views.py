@@ -69,14 +69,6 @@ def logoutUser(request):
     return redirect('login')
 
 
-# - User
-def userPage(request):
-
-    context = {}
-
-    return render(request, 'calls/user.html', context)
-
-
 ######### Dashboard ############\
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])

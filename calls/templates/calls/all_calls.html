@@ -4,14 +4,11 @@
 
 <br>
 <div class="row">
-	<div class="col-md">
-		
+	<div class="col-md">		
 		<div class="card card-body ml-2 mr-2 gray shadow">
 			<div class="row">
 				<form method="get" class="form-inline ml-2" id="call-filter-form">
-
 					{{ callFilter.form }}
-
 					<button class="btn btn-primary ml-2 shadow" type="submit">Search</button>
 				</form>
 			</div>
@@ -56,8 +53,7 @@
 					{% if page_obj.has_previous %}
 					<li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
 					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
-					{% endif %}
-			  
+					{% endif %}	  
 					{% if page_obj.has_next %}
 					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
 					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
