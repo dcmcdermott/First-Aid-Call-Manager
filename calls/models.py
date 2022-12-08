@@ -21,6 +21,7 @@ class Responder(models.Model):
     phone = models.CharField(max_length=200, null=True)
     email = models.EmailField(null=True)
     license_scan = models.ImageField(null=True, blank=True)
+    license_expiration = models.DateField(null=True, blank=True)
     cpr_scan = models.ImageField(null=True, blank=True)
     cpr_expiration = models.DateField(null=True, blank=True)
     active = models.BooleanField(default=True, null=True)

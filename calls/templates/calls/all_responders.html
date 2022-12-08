@@ -28,6 +28,8 @@
 					<th>FT/PT</th>
 					<th>Phone</th>
 					<th>Email</th>
+					<th>License expires</th>
+					<th>CPR expires</th>
 					<th>Status</th>
 					<th>Update</th>
 				</tr>		
@@ -38,7 +40,9 @@
 						<td>{{ responder.certification }}</td>
 						<td>{{ responder.status }}</td>
 						<td>{{ responder.phone }}</td>
-						<td>{{ responder.email }}</td>	
+						<td>{{ responder.email }}</td>
+						<td>{{ responder.license_expiration }}</td>
+						<td>{{ responder.cpr_expiration }}</td>
 						{% if responder.active == True %}
 							<td>Active</td>
 						{% endif %}
