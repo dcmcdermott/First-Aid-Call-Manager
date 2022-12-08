@@ -28,7 +28,7 @@
                     <td>{{ walkin.firstname }}</td>
                     <td>{{ walkin.lastname }}</td>
                     <td>{{ walkin.reason }}</td>
-                    <td><a class="btn btn-info btn-sm ml-2 shadow" href="{% url 'walkin_notes' walkin.id %}">📝</a></td>
+                    <td><a class="btn btn-sm ml-2 shadow" href="{% url 'walkin_notes' walkin.id %}">📝</a></td>
                 </tr>
                 {% endfor %}
             </table>
