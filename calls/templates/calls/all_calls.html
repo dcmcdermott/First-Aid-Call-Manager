@@ -6,13 +6,13 @@
 <div class="row">
 	<div class="col-md">
 		
-		<div class="card card-body ml-2 mr-2 shadow">
+		<div class="card card-body ml-2 mr-2 gray shadow">
 			<div class="row">
 				<form method="get" class="form-inline ml-2" id="call-filter-form">
 
 					{{ callFilter.form }}
 
-					<button class="btn btn-primary ml-3 shadow" type="submit">Search</button>
+					<button class="btn btn-primary ml-2 shadow" type="submit">Search</button>
 				</form>
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 					<th>Cancelled</th>
 				</tr>		
 				{% for call in page_obj %}
-					<tr class="shadow-sm">
+					<tr class="shadow-sm {% if call.upgrade_time %}orange-less{% endif %}">
 						<td>{{ call.datetime|date:"m/d/y" }}</td>
 						<td>{{ call.datetime|time:"G:i" }}</td>
 						<td>{{ call.nature }}</td>

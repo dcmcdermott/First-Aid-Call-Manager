@@ -12,16 +12,16 @@
 <br>
 <div class="row">
     <div class="col-md-12">
-        <div class="card card-body w-50 m-auto bg-primary shadow">
-            <h5>On Scene</h5>
+        <div class="card card-body w-50 m-auto bg-dark text-white shadow">
+            <h5>🔴&nbsp On Scene</h5>
         </div>
         <div class="card card-body w-50 m-auto shadow">
             <h4>Show {{ item.responder }} on scene at {{ item.location }} now?</h4>
             <form action="{% url 'on_scene' item.id %}" method="POST">
                 {% csrf_token %}
                 <div class="text-right">
-                    <a class="btn btn-warning shadow" href="{% url 'home' %}">Cancel</a>
-                    <input class="btn btn-info shadow" type="submit" name="Yes">
+                    <a class="btn btn-warning mt-2 shadow" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-primary ml-1 mt-2 shadow" type="submit" name="Yes">
                 </div>
             </form>
         </div>

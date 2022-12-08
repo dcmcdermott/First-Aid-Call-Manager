@@ -12,16 +12,16 @@
 <br>
 <div class="row">
     <div class="col-md-12">
-        <div class="card card-body w-50 m-auto bg-primary shadow">
-            <h5>Downgrade Call</h5>
+        <div class="card card-body w-50 m-auto bg-dark text-white shadow">
+            <h5>⬇️&nbsp Downgrade Call</h5>
         </div>
         <div class="card card-body w-50 m-auto shadow">
             <p>Change the nature of the "{{ call.nature }}" at {{ call.location }}?</p>
             <form method="POST">
                 {% csrf_token %}
                 {{ form }}
-                <a class="btn btn-warning shadow" href="{% url 'home' %}">Cancel</a>
-                <input class="btn btn-info shadow" type="submit" name="Yes">
+                <a class="btn btn-warning mt-2 mr-1 shadow" href="{% url 'home' %}">Cancel</a>
+                <input class="btn btn-primary mt-2 shadow" type="submit" name="Yes">
             </form>
         </div>
     </div>

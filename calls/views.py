@@ -134,7 +134,22 @@ def home(request):
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def allResponders(request):
     
-    responders = Responder.objects.all().order_by('firstname').values()
+    responders = Responder.objects.filter(active=True).order_by('firstname').values()
+
+    today = timezone.now().date()
+    time_threshold = today + timedelta(days=30)
+
+    expired_licenses = []
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < today:
+                expired_licenses.append(responder['firstname'])
+
+    expired_cprs = []
+    for responder in responders:
+        if responder['cpr_expiration'] is not None:
+            if responder['cpr_expiration'] < today:
+                expired_cprs.append(responder['firstname'])
 
     # Search Filter
     responderFilter = ResponderFilter(request.GET, queryset=responders)
@@ -146,7 +161,11 @@ def allResponders(request):
 
     context = {
             'responders': responders, 
-            'responderFilter': responderFilter, 
+            'responderFilter': responderFilter,
+            'today': today,
+            'time_threshold': time_threshold,
+            'expired_licenses': expired_licenses,
+            'expired_cprs': expired_cprs,
             'page_obj': page_obj,
             }
     return render(request, 'calls/all_responders.html', context)
@@ -371,7 +390,7 @@ def walkinNotes(request, pk):
             form.save()
             return redirect('/')
     
-    context = {'form': form}
+    context = {'form': form, 'walkin': walkin}
     return render(request, 'calls/walkin_notes.html', context)
 
 
