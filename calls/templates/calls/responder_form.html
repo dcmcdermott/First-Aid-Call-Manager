@@ -5,15 +5,15 @@
 {% block content %}
 
 <br>
-<div class="row>">
-    <div class="col-md-12">
+<div class="row">
+    <div class="col-md-12 mb-3">
         <div class="card card-body w-50 m-auto shadow" style="background: #805D93;">
             <h5>Responder</h5>
         </div>
         <div class="card card-body w-50 m-auto shadow">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form }}
+                {{ form.as_p }}
                 <a class="btn btn-warning shadow" href="{% url 'all_responders' %}">Cancel</a>
                 <input class="btn btn-info shadow" type="submit" name="Submit">
             </form>

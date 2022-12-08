@@ -20,6 +20,7 @@ class Responder(models.Model):
     status = models.CharField(max_length=200, null=True, choices=STATUS)
     phone = models.CharField(max_length=200, null=True)
     email = models.EmailField(null=True)
+    license_scan = models.ImageField(null=True, blank=True)
     active = models.BooleanField(default=True, null=True)
 
     def __str__(self):

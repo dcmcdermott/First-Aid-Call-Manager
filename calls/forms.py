@@ -45,7 +45,7 @@ class WalkinNotesForm(ModelForm):
 class ResponderForm(ModelForm):
     class Meta:
         model = Responder
-        fields = ['firstname', 'lastname', 'certification', 'status', 'phone', 'email', 'active']
+        fields = ['firstname', 'lastname', 'certification', 'status', 'phone', 'email', 'license_scan', 'active']
         widgets = {
             'firstname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
             'lastname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),

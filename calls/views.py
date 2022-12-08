@@ -160,7 +160,7 @@ def newResponder(request):
     form = ResponderForm()
 
     if request.method == 'POST':
-        form = ResponderForm(request.POST)
+        form = ResponderForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/responders')
@@ -178,7 +178,7 @@ def updateResponder(request, pk):
     form = ResponderForm(instance=responder)
 
     if request.method == 'POST':
-        form = ResponderForm(request.POST, instance=responder)
+        form = ResponderForm(request.POST, request.FILES, instance=responder)
         if form.is_valid():
             form.save()
             return redirect('/responders')
