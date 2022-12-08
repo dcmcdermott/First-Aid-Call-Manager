@@ -59,7 +59,7 @@ class Call(models.Model):
     nature = models.CharField(max_length=100, null=True, choices=CALL_TYPES)
     responder = models.ForeignKey(Responder, on_delete=models.SET_NULL, null=True)
     red = models.BooleanField(default=False, blank=True, null=True)
-    zone = models.CharField(max_length=100, choices=ZONES, null=True)
+    zone = models.CharField(max_length=100, choices=ZONES, default='701', null=True)
     location = models.CharField(max_length=100, null=True)
     caller = models.CharField(max_length=100,default="SECURITY", null=True)
     on_scene_time = models.TimeField(default=None, blank=True, null=True)

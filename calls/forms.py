@@ -1,5 +1,5 @@
 from django.forms import ModelForm, TimeInput, TextInput, Textarea
-from django.forms.widgets import CheckboxInput, Select, EmailInput, DateInput
+from django.forms.widgets import CheckboxInput, Select, EmailInput, DateInput, RadioSelect
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -10,15 +10,25 @@ from .models import *
 class CallForm(ModelForm):
     class Meta:
         model = Call
-        fields = ['red', 'nature', 'zone', 'location', 'caller', 'responder']
-        widgets = {
-            'red': CheckboxInput(attrs={'type': 'checkbox', 'class': 'form-check', 'style': 'margin-bottom: 10px;'}),
-            'nature': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'zone': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'location': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'caller': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'responder': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+        fields = [ 'zone', 'red', 'nature', 'location', 'caller', 'responder']
+        labels = {
+            'red': 'Red?',
+            'nature': 'Nature',
+            'zone': '',
+            'location': 'Location',
+            'caller': 'Caller',
+            'responder': 'Responder',
         }
+        widgets = {
+            'zone': RadioSelect(attrs={'type': 'text', 'class': 'form-check form-check-inline w-100'}),
+            'red': CheckboxInput(attrs={'type': 'checkbox', 'class': 'form-check mb-1 ml-3'}),           
+            'nature': Select(attrs={'type': 'text', 'class': 'form-control w-75 ml-auto mr-auto mb-1'}),
+            'location': TextInput(attrs={'type': 'text', 'class': 'form-control w-75 ml-auto mr-auto mb-1', 'placeholder': 'Location...'}),
+            'caller': TextInput(attrs={'type': 'text', 'class': 'form-control w-75 ml-auto mr-auto mb-1'}),
+            'responder': Select(attrs={'type': 'text', 'class': 'form-control w-75 ml-auto mr-auto mb-1'}),
+        }
+
+        
 
  
 class WalkinForm(ModelForm):
