@@ -5,10 +5,7 @@
 <br>
 <div class="row">
 	<div class="col-md">
-		<div class="card card-body" id="walkins">
-			<h5>Walkins</h5>
-		</div>
-		<div class="card card-body">
+		<div class="card card-body ml-2 mr-2 shadow">
 			<div class="row">
 				<form method="get" class="form-inline ml-2">
 					{{ walkinFilter.form }}
@@ -17,7 +14,8 @@
 				<a class="btn btn-sm btn-warning ml-auto mr-2 shadow" href="{% url 'ambassador_signin' %}">Launch AMB Sign-in</a>
 			</div>
 		</div>
-		<div class="card card-body shadow">
+		<br>
+		<div class="card card-body ml-2 mr-2 mb-2 shadow">
 			<table class="table">
 				<tr>
 					<th>Date</th>
@@ -40,7 +38,7 @@
 					</tr>
 				{% endfor %}
 			</table>
-			<div class="row">
+			<div class="row ml-2 mr-2">
 				<p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}</p>
 				<ul class="pagination align-right float-right ml-auto">
 					{% if page_obj.has_previous %}
