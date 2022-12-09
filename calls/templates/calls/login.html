@@ -47,7 +47,7 @@
 				padding: 0 2rem;
 			}
 			.input-group-text {
-				background: #f7ba5b !important;
+				background: orange !important;
 				color: white !important;
 				border: 0 !important;
 				border-radius: 0.25rem 0 0 0.25rem !important;
@@ -77,19 +77,19 @@
 						<form method="POST" action="">
 							{% csrf_token %}
 							<div class="input-group mb-3">
-								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								<div class="input-group-append shadow">
+									<span class="input-group-text shadow"><i class="fas fa-user"></i></span>
 								</div>
-								<input type="text" name="username" placeholder="Username..." class="form-control">
+								<input type="text" name="username" placeholder="Username..." class="form-control shadow">
 							</div>
 							<div class="input-group mb-2">
-								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								<div class="input-group-append shadow">
+									<span class="input-group-text shadow"><i class="fas fa-key"></i></span>
 								</div>
-									<input type="password" name="password" placeholder="Password..." class="form-control" >
+									<input type="password" name="password" placeholder="Password..." class="form-control shadow" >
 							</div>
 								<div class="d-flex justify-content-center mt-3 login_container">
-					 				<input class="btn login_btn" type="submit" value="Login">
+					 				<input class="btn btn-primary w-100 shadow" type="submit" value="Login">
 					   			</div>
 						</form>
 					</div>

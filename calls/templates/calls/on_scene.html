@@ -20,8 +20,8 @@
             <form action="{% url 'on_scene' item.id %}" method="POST">
                 {% csrf_token %}
                 <div class="text-right">
-                    <a class="btn btn-warning mt-2 shadow" href="{% url 'home' %}">Cancel</a>
-                    <input class="btn btn-primary ml-1 mt-2 shadow" type="submit" name="Yes">
+                    <a class="btn btn-outline-warning mt-2 shadow" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-primary w-25 mt-2 shadow" type="submit" name="Yes">
                 </div>
             </form>
         </div>

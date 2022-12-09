@@ -80,7 +80,7 @@
 					<td>{{ walkins_mtd_count }}</td>
 					<td>{{ calls_mtd_count }}</td>
 				</tr>
-				<tr class="font-weight-bold" id="today">
+				<tr class="font-weight-bold light-yellow">
 					<td>today</td>                       
 					<td>{{ walkins_today_count }}</td>
 					<td>{{ calls_today_count }}</td>
@@ -102,17 +102,17 @@
 				  	data: {
 						labels: ['701', '705', '710', '720', '725', '730', '740', '745'],
 						datasets: [{
-					  		label: 'Calls - today',
+					  		label: 'Calls today',
 					  		data: [{{ z_701 }}, {{ z_705 }}, {{ z_710 }}, {{ z_720 }}, {{ z_725 }}, {{ z_730 }}, {{ z_740 }}, {{ z_745 }}],
 					  		backgroundColor: [
-    							  'rgba(255, 99, 132, 0.5)',
-    							  'rgba(255, 159, 64, 0.5)',
-    							  'rgba(255, 205, 86, 0.5)',
-    							  'rgba(17, 171, 22, 0.5)',
-    							  'rgba(54, 162, 235, 0.5)',
-    							  'rgba(153, 102, 255, 0.5)',
-								  'rgba(0, 250, 229, 0.5)',
-    							  'rgba(201, 203, 207, 0.5)'
+    							  'rgba(255, 99, 132, 0.8)',
+    							  'rgba(255, 159, 64, 0.8)',
+    							  'rgba(255, 205, 86, 0.8)',
+    							  'rgba(17, 171, 22, 0.8)',
+    							  'rgba(54, 162, 235, 0.8)',
+    							  'rgba(153, 102, 255, 0.8)',
+								  'rgba(0, 250, 229, 0.8)',
+    							  'rgba(201, 203, 207, 0.8)'
     						],
     						borderColor: [
     					  		'rgb(255, 99, 132)',

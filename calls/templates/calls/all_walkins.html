@@ -9,9 +9,9 @@
 			<div class="row">
 				<form method="get" class="form-inline ml-2">
 					{{ walkinFilter.form }}
-					<button class="btn btn-primary ml-2 shadow" type="submit">Search</button>
+					<button class="btn btn-outline-primary ml-2 shadow" type="submit">Search</button>
 				</form>
-				<a class="btn btn-warning ml-auto mr-2 shadow" href="{% url 'ambassador_signin' %}">Launch AMB Sign-in</a>
+				<a class="btn btn-outline-warning ml-auto mr-2 shadow" href="{% url 'ambassador_signin' %}">Launch AMB Sign-in</a>
 			</div>
 		</div>
 		<br>
@@ -34,7 +34,7 @@
                         <td>{{ walkin.lastname }}</td>
                         <td>{{ walkin.department }}</td>
                         <td>{{ walkin.reason }}</td>
-						<td><a method="POST" class="btn btn-sm btn-info shadow" href="{% url 'walkin_notes' walkin.id %}">Notes</a></td>
+						<td><a method="POST" class="btn btn-sm btn-outline-info shadow" href="{% url 'walkin_notes' walkin.id %}">Notes</a></td>
 					</tr>
 				{% endfor %}
 			</table>

@@ -20,8 +20,8 @@
             <form method="POST">
                 {% csrf_token %}
                 {{ form }}
-                <a class="btn btn-warning mt-2 mr-1 shadow" href="{% url 'home' %}">Cancel</a>
-                <input class="btn btn-primary mt-2 shadow" type="submit" name="Yes">
+                <a class="btn btn-outline-warning mt-2 shadow" href="{% url 'home' %}">Cancel</a>
+                <input class="btn btn-primary w-25 mt-2 shadow" type="submit" name="Yes">
             </form>
         </div>
     </div>

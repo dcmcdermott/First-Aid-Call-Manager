@@ -73,38 +73,26 @@
             <h3 class="wash-hands">Please wash your hands before signing in</h3>
 			<div class="d-flex justify-content-center h-100">
 				<div class="user_card">
-					<div class="d-flex justify-content-center">
+					<div class="d-flex justify-content-center pt-3">
 						<h3 id="form-title">FIRST AID SIGN IN</h3>
 					</div>
-					<div class="d-flex justify-content-center form_container">
+					<div class="d-flex justify-content-center pb-2 form_container">
 						<form method="POST" action="">
 							{% csrf_token %}
 							<div class="input-group mb-3">
-								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
 								{{form.firstname}}
 							</div>
 							<div class="input-group mb-2">
-								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
 								{{form.lastname}}
 							</div>
 							<div class="input-group mb-2">
-								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
 								{{form.department}}
 							</div>
 							<div class="input-group mb-2">
-								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
 								{{form.reason}}
 							</div>
 					   		<div class="d-flex justify-content-center mt-3 login_container">
-					 			<input class="btn login_btn" type="submit" value="Sign In">
+					 			<input class="btn btn-primary shadow" type="submit" value="Sign In">
 					   		</div>
 						</form>
 					</div>
