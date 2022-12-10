@@ -28,8 +28,6 @@ class CallForm(ModelForm):
             'responder': Select(attrs={'type': 'text', 'class': 'form-control w-75 ml-auto mr-auto mb-1'}),
         }
 
-        
-
  
 class WalkinForm(ModelForm):
     class Meta:
@@ -93,3 +91,12 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
+
+
+class AssignRespondersForm(ModelForm):
+    class Meta:
+        model = Call
+        fields = ['responder']
+        widgets = {
+            'responder': Select(attrs={'type': 'text', 'class': 'no-arrow text-center'})
+        }

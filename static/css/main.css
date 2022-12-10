@@ -39,7 +39,7 @@ body {
 }
 
 .orange-less {
-    background-color: rgba(255, 159, 64, 0.2);
+    background-color: rgba(255, 159, 64, 0.1);
 }
 
 .orange {
@@ -56,4 +56,8 @@ body {
 
 .small {
     font-size: 10px;
+}
+
+.no-arrow {
+    appearance: none;
 }

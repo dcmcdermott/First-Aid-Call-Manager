@@ -81,13 +81,19 @@ def home(request):
     calls_today_count = Call.objects.filter(datetime__date=today).count()
     calls_mtd_count = Call.objects.filter(datetime__year=today.year, datetime__month=today.month).count()
     calls_ytd_count = Call.objects.filter(datetime__year=today.year).count()
+    todays_calls = Call.objects.all().filter(datetime__date=today)
 
     walkins = Walkin.objects.all().order_by('-datetime')[:8]
     walkins_today_count = Walkin.objects.filter(datetime__date=today).count()
     walkins_mtd_count = Walkin.objects.filter(datetime__year=today.year, datetime__month=today.month).count()
     walkins_ytd_count = Walkin.objects.filter(datetime__year=today.year).count()
 
-    todays_calls = Call.objects.all().filter(datetime__date=today)
+    responders = Responder.objects.filter(active=True)
+    form = AssignRespondersForm()
+
+    scheduler_times = ['🕚', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+    scheduler_zones = ['705', '710', '720', '730']
+
     z_701 = todays_calls.filter(zone='701').count()
     z_705 = todays_calls.filter(zone='705').count()
     z_710 = todays_calls.filter(zone='710').count()
@@ -108,6 +114,10 @@ def home(request):
         'walkins_today_count': walkins_today_count, 
         'walkins_mtd_count': walkins_mtd_count,
         'walkins_ytd_count': walkins_ytd_count,
+        'responders': responders,
+        'form': form,
+        'scheduler_times': scheduler_times,
+        'scheduler_zones': scheduler_zones,
         'z_701': z_701,
         'z_705': z_705,
         'z_710': z_710,
