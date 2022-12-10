@@ -7,16 +7,15 @@
 
 {% include 'calls/status.html' %}
 
-<br>
-<div class="row">
-    <div class="col-md-5">
-        <h5>&nbsp AMB Walk-Ins</h5>
+
+<div class="row pb-0">
+    <div class="col-md-4">
         <hr>
-        <div class="card card-body ml-2 shadow">
+        <div class="card card-body ml-3 pb-0 shadow">
             <a class="btn btn-info btn-sm btn-block shadow" href="{% url 'new_walkin' %}">New Walkin</a>
             <table class="table table-sm">
                 <tr>
-                    <th>Date &nbsp Time</th>
+                    <th>Time</th>
                     <th>First Name</th>
                     <th>Last name</th>
                     <th>Reason</th>
@@ -24,7 +23,7 @@
                 </tr>
                 {% for walkin in walkins %}
                 <tr class="shadow-sm {% if walkin.datetime < time_threshold %}gray{% endif %}">     
-                    <td>{{ walkin.datetime|date:"m/d" }} &nbsp {{ walkin.datetime|localtime|time:"G:i" }}</td>                  
+                    <td>{{ walkin.datetime|localtime|time:"G:i" }}</td>                  
                     <td>{{ walkin.firstname }}</td>
                     <td>{{ walkin.lastname }}</td>
                     <td>{{ walkin.reason }}</td>
@@ -34,16 +33,16 @@
             </table>
         </div>
     </div>
-    <div class="col-md-7">
-        <h5>Response Log</h5>
+    <div class="col-md-8">
         <hr>
-        <div class="card card-body mr-2 shadow">
+        <div class="card card-body mr-3 pb-0 shadow">
             <a class="btn btn-primary btn-sm btn-block shadow" href="{% url 'new_call' %}">Dispatch Call</a>
             <table class="table table-sm">
                 <tr>
                     <th>Date</th>
                     <th>Time</th>
                     <th>Nature</th>
+                    <th>Zone</th>
                     <th>Location</th>
                     <th>Responder</th>
                     <th>On Scene</th>
@@ -60,6 +59,7 @@
                         {% else %}
                             <td><a method="POST" class="btn btn-sm btn-link font-weight-bold w-100 shadow-sm" href="{% url 'downgrade_call' call.id %}">{{ call.nature }}</a></td> 
                         {% endif %}
+                        <td>{{ call.zone }}</td>
                         <td>{{ call.location }}</td>
                         <td>{{ call.responder }}</td>
                         {# On Scene Button #}

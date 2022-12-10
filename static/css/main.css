@@ -6,18 +6,6 @@ body {
     background-color: #faa107;
 }
 
-#walkins {
-    background-color: #33b864;
-}
-
-#calls {
-    background-color: #FFDB58;
-}
-
-#responders_tab {
-    background-color: #805D93;
-}
-
 #new_responder_btn {
     width: 20%;
 }

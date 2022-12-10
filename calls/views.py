@@ -77,13 +77,13 @@ def home(request):
     today = timezone.now()
     time_threshold = today - timedelta(hours=2)
 
-    calls = Call.objects.all().order_by('-datetime')[:8]
+    calls = Call.objects.all().order_by('-datetime')[:10]
     calls_today_count = Call.objects.filter(datetime__date=today).count()
     calls_mtd_count = Call.objects.filter(datetime__year=today.year, datetime__month=today.month).count()
     calls_ytd_count = Call.objects.filter(datetime__year=today.year).count()
     todays_calls = Call.objects.all().filter(datetime__date=today)
 
-    walkins = Walkin.objects.all().order_by('-datetime')[:8]
+    walkins = Walkin.objects.all().order_by('-datetime')[:10]
     walkins_today_count = Walkin.objects.filter(datetime__date=today).count()
     walkins_mtd_count = Walkin.objects.filter(datetime__year=today.year, datetime__month=today.month).count()
     walkins_ytd_count = Walkin.objects.filter(datetime__year=today.year).count()
@@ -160,7 +160,7 @@ def allResponders(request):
     responderFilter = ResponderFilter(request.GET, queryset=responders)
     responders = responderFilter.qs
     # Pagination
-    paginator = Paginator(responders, 10)
+    paginator = Paginator(responders, 50)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
 
@@ -222,7 +222,7 @@ def allCalls(request):
     callFilter = CallFilter(request.GET, queryset=calls)
     calls = callFilter.qs
     # Pagination
-    paginator = Paginator(calls, 10)
+    paginator = Paginator(calls, 25)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
 
