@@ -505,3 +505,20 @@ def allMinors(request):
             'page_obj': page_obj
             }
     return render(request, 'calls/all_minors.html', context)
+
+
+# - New Minor
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
+def newMinor(request):
+
+    form = MinorForm()
+
+    if request.method == 'POST':
+        form = MinorForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/minors')
+
+    context = {'form': form}
+    return render(request, 'calls/minor_form.html', context)

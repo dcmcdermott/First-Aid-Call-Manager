@@ -1,0 +1,26 @@
+{% extends 'calls/main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<br>
+<div class="row">
+    <div class="col-md-12 mb-3">
+        <div class="card card-body w-50 m-auto bg-dark text-white shadow">
+            <h5>🔞 Minor information</h5>
+        </div>
+        <div class="card card-body w-50 m-auto shadow">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="text-center">
+                    <a class="btn btn-outline-warning shadow" href="{% url 'all_minors' %}">Cancel</a>
+                    <input class="btn btn-primary w-25 shadow" type="submit" name="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -19,7 +19,7 @@ class ResponderFilter(django_filters.FilterSet):
         ('FT-S', 'FT-S')
     ) 
 
-    lastname = CharFilter(field_name="lastname", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    lastname = CharFilter(field_name="lastname", lookup_expr="icontains", label= 'Last Name', widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
     certification = ChoiceFilter(field_name="certification", choices=CERTIFICATIONS,  label= 'Certification', widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
     ft_pt = ChoiceFilter(field_name="status", choices=STATUS, label= 'FT/PT', widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
 
@@ -83,7 +83,7 @@ class WalkinFilter(django_filters.FilterSet):
         ('Zoo', 'Zoo'),
     )
     walkin_date = DateFilter(field_name="datetime__date", label= 'Date', widget=DateTimeInput(attrs={'type': 'date', 'class': 'form-control ml-2 mr-2'}))
-    lastname = CharFilter(field_name="lastname", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    lastname = CharFilter(field_name="lastname", lookup_expr="icontains", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
     department = ChoiceFilter(field_name="department", choices=DEPARTMENTS, widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
     reason = CharFilter(field_name="reason", label= 'Reason', lookup_expr="icontains", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
     
@@ -94,9 +94,9 @@ class WalkinFilter(django_filters.FilterSet):
 
 class MinorFilter(django_filters.FilterSet):
 
-    lastname = CharFilter(field_name="lastname", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
-    firstname = CharFilter(field_name="firstname", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
-    emp_id = CharFilter(field_name="emp_id", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    lastname = CharFilter(field_name="lastname", lookup_expr="icontains", label= 'Last Name', widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    firstname = CharFilter(field_name="firstname", lookup_expr="icontains", label= 'First Name', widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    emp_id = CharFilter(field_name="emp_id", label= 'ID #', widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
     
     class Meta:
         model = Minor

@@ -11,6 +11,7 @@
 					{{ minorFilter.form }}
 					<button class="btn btn-outline-primary ml-2 shadow" type="submit">Search</button>
 				</form>
+                <a class="btn btn-outline-success btn-block ml-auto mr-2 shadow" id="new_responder_btn" href="{% url 'new_minor' %}">➕ New Minor</a>
 			</div>
 		</div>
 		<br>
@@ -21,7 +22,7 @@
 					<th>First Name</th>
 					<th>ID</th>
 					<th>DOB</th>
-				</tr>		
+				</tr>	
 				{% for minor in page_obj %}
 					<tr class="shadow-sm {% if call.upgrade_time %}orange-less{% endif %}">
 						<td>{{ minor.lastname }}</td>

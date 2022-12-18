@@ -100,3 +100,21 @@ class AssignRespondersForm(ModelForm):
         widgets = {
             'responder': Select(attrs={'type': 'text', 'class': 'no-arrow text-center'})
         }
+
+
+class MinorForm(ModelForm):
+    class Meta:
+        model = Minor
+        fields = ['firstname', 'lastname', 'emp_id', 'dob']
+        labels = {
+            'firstname': 'First Name',
+            'lastname': 'Last Name',
+            'emp_id': 'ID #',
+            'dob': 'DOB'
+        }
+        widgets = {
+            'lastname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'firstname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'emp_id': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'dob': DateInput(attrs={'type': 'date', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+        }
