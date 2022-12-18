@@ -480,3 +480,28 @@ def reporting(request):
             'r_745': r_745,
             }
     return render(request, 'calls/reporting.html', context)
+
+######### MINORS #########
+# - All Minors
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
+def allMinors(request):
+    
+    today = timezone.now().date()
+    minors = Minor.objects.filter(dob__gte=today-timedelta(days=6570)).order_by('lastname').values()
+
+    # Search Filter
+    minorFilter = MinorFilter(request.GET, queryset=minors)
+    minors = minorFilter.qs
+    # Pagination
+    paginator = Paginator(minors, 50)
+    page_number = request.GET.get('page')
+    page_obj = Paginator.get_page(paginator, page_number)
+
+    context = {
+            'minors': minors, 
+            'minorFilter': minorFilter,
+            'today': today,
+            'page_obj': page_obj
+            }
+    return render(request, 'calls/all_minors.html', context)

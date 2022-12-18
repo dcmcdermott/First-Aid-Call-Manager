@@ -1,0 +1,51 @@
+{%  extends 'calls/main.html' %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md ml-3 mr-3">		
+		<div class="card card-body gray shadow">
+			<div class="row">
+				<form method="get" class="form-inline ml-2" id="call-filter-form">
+					{{ minorFilter.form }}
+					<button class="btn btn-outline-primary ml-2 shadow" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+		<br>
+		<div class="card card-body mb-2 shadow">
+			<table class="table">
+				<tr>
+					<th>Last Name</th>
+					<th>First Name</th>
+					<th>ID</th>
+					<th>DOB</th>
+				</tr>		
+				{% for minor in page_obj %}
+					<tr class="shadow-sm {% if call.upgrade_time %}orange-less{% endif %}">
+						<td>{{ minor.lastname }}</td>
+						<td>{{ minor.firstname }}</td>
+						<td>{{ minor.emp_id }}</td>
+                        <td>{{ minor.dob|date:"m/d/y" }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+			<div class="row ml-2 mr-2">
+				<p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}</p>
+				<ul class="pagination align-right float-right ml-auto">
+					{% if page_obj.has_previous %}
+					<li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+					{% endif %}	  
+					{% if page_obj.has_next %}
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>		
+</div>
+
+{% endblock content %}

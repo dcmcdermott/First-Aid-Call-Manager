@@ -107,3 +107,19 @@ class Walkin(models.Model):
     
     def __str__(self):
         return self.lastname
+
+
+class Minor(models.Model):
+    
+    lastname = models.CharField(max_length=100, null=True)
+    firstname = models.CharField(max_length=100, null=True)
+    emp_id = models.CharField(max_length=10, null=True)
+    dob = models.DateField(null=True)
+
+    def save(self):
+        self.lastname = self.lastname.upper()
+        self.firstname = self.firstname.upper()
+        super(Minor, self).save()
+    
+    def __str__(self):
+        return f"{self.lastname}, {self.firstname}"

@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Responder)
 admin.site.register(Call)
 admin.site.register(Walkin)
+admin.site.register(Minor)

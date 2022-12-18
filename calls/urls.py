@@ -26,5 +26,7 @@ urlpatterns = [
     # Responders
     path('responders/', views.allResponders, name="all_responders"),
     path('new_responder/', views.newResponder, name='new_responder'),
-    path('update_responder/<str:pk>/', views.updateResponder, name='update_responder'),  
+    path('update_responder/<str:pk>/', views.updateResponder, name='update_responder'),
+    # Minors
+    path('minors/', views.allMinors, name="all_minors"),
 ]

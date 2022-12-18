@@ -87,7 +87,17 @@ class WalkinFilter(django_filters.FilterSet):
     department = ChoiceFilter(field_name="department", choices=DEPARTMENTS, widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
     reason = CharFilter(field_name="reason", label= 'Reason', lookup_expr="icontains", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
     
-    
     class Meta:
         model = Walkin
         fields = ['walkin_date', 'lastname', 'department', 'reason']
+
+
+class MinorFilter(django_filters.FilterSet):
+
+    lastname = CharFilter(field_name="lastname", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    firstname = CharFilter(field_name="firstname", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    emp_id = CharFilter(field_name="emp_id", widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
+    
+    class Meta:
+        model = Minor
+        fields = ['lastname', 'firstname', 'emp_id']

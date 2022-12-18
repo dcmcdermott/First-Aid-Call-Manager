@@ -21,6 +21,9 @@
       <li class="nav-item {% if url_name == 'all_responders' %}active{% endif%}">
         <a class="nav-link" href="{% url 'all_responders' %}">Responders</a>
       </li>
+      <li class="nav-item {% if url_name == 'all_minors' %}active{% endif%}">
+        <a class="nav-link" href="{% url 'all_minors' %}">Minors</a>
+      </li>
       <li class="nav-item {% if url_name == 'reporting' %}active{% endif%}">
         <a class="nav-link" href="{% url 'reporting' %}">Reporting</a>
       </li>
