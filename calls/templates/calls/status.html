@@ -2,11 +2,11 @@
 <br>
 <div class="row">
 	<div class="col-md-6">
-		<div class="card text-center text-white ml-3 w-100 shadow">
+		<div class="card text-center text-white ml-5 w-auto shadow">
 			<table class="table table-sm small mb-0">
 				<tr class="bg-dark text-white">
 					<th></th>
-					{% for i in '01234567'|make_list %}
+					{% for i in '012345'|make_list %}
 						<th>
 							<select class="form-select form-select-sm w-50 text-center no-arrow">
 								{% for time in scheduler_times %}
@@ -20,7 +20,7 @@
 				{% for zone in scheduler_zones %}
 					<tr>
 						<td class="font-weight-bold">{{ zone }}</td> 
-						{% for i in '01234567'|make_list %}                      
+						{% for i in '012345'|make_list %}                      
 							<td>{{ form.responder }}</td>
 						{% endfor %}
 					</tr>

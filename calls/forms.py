@@ -105,12 +105,13 @@ class AssignRespondersForm(ModelForm):
 class MinorForm(ModelForm):
     class Meta:
         model = Minor
-        fields = ['firstname', 'lastname', 'emp_id', 'dob']
+        fields = ['firstname', 'lastname', 'emp_id', 'dob', 'consent_scan']
         labels = {
             'firstname': 'First Name',
             'lastname': 'Last Name',
             'emp_id': 'ID #',
-            'dob': 'DOB'
+            'dob': 'DOB',
+            'consent_scan': 'Parental Consent Scan'
         }
         widgets = {
             'lastname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
@@ -118,3 +119,10 @@ class MinorForm(ModelForm):
             'emp_id': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
             'dob': DateInput(attrs={'type': 'date', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
         }
+
+
+class UpdateMinorConsentForm(ModelForm):
+    class Meta:
+        model = Minor
+        fields = ['consent_scan']
+        

@@ -115,6 +115,7 @@ class Minor(models.Model):
     firstname = models.CharField(max_length=100, null=True)
     emp_id = models.CharField(max_length=10, null=True)
     dob = models.DateField(null=True)
+    consent_scan = models.ImageField(null=True, blank=True)
 
     def save(self):
         self.lastname = self.lastname.upper()

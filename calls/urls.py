@@ -29,5 +29,6 @@ urlpatterns = [
     path('update_responder/<str:pk>/', views.updateResponder, name='update_responder'),
     # Minors
     path('minors/', views.allMinors, name="all_minors"),
-    path('new_minor/', views.newMinor, name='new_minor')
+    path('new_minor/', views.newMinor, name='new_minor'),
+    path('update_minor_consent/<str:pk>/', views.updateMinorConsent, name='update_minor_consent')
 ]

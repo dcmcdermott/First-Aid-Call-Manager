@@ -22,6 +22,7 @@
 					<th>First Name</th>
 					<th>ID</th>
 					<th>DOB</th>
+					<th>Consent</th>
 				</tr>	
 				{% for minor in page_obj %}
 					<tr class="shadow-sm {% if call.upgrade_time %}orange-less{% endif %}">
@@ -29,6 +30,7 @@
 						<td>{{ minor.firstname }}</td>
 						<td>{{ minor.emp_id }}</td>
                         <td>{{ minor.dob|date:"m/d/y" }}</td>
+						<td><a method="POST" class="btn btn-sm btn-outline-secondary ml-2 shadow" href="{% url 'update_minor_consent' minor.id %}">view</a></td>
 					</tr>
 				{% endfor %}
 			</table>

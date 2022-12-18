@@ -522,3 +522,21 @@ def newMinor(request):
 
     context = {'form': form}
     return render(request, 'calls/minor_form.html', context)
+
+
+# - Update Minor Consent
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
+def updateMinorConsent(request, pk):
+
+    minor = Minor.objects.get(id=pk)
+    form = UpdateMinorConsentForm(instance=minor)
+
+    if request.method == 'POST':
+        form = UpdateMinorConsentForm(request.POST, request.FILES, instance=minor)
+        if form.is_valid():
+            form.save()
+            return redirect('/minors')
+    
+    context = {'form': form}
+    return render(request, 'calls/minor_form.html', context)
