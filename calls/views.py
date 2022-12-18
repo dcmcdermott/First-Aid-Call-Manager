@@ -88,7 +88,7 @@ def home(request):
     walkins_mtd_count = Walkin.objects.filter(datetime__year=today.year, datetime__month=today.month).count()
     walkins_ytd_count = Walkin.objects.filter(datetime__year=today.year).count()
 
-    responders = Responder.objects.filter(active=True)
+    responders = Responder.objects.filter(active=True).order_by('firstname').values()   
     form = AssignRespondersForm()
 
     scheduler_times = [
@@ -106,6 +106,13 @@ def home(request):
     z_740 = todays_calls.filter(zone='740').count()
     z_745 = todays_calls.filter(zone='745').count()
 
+    expired_license_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < today.date():
+                expired_license_count += 1
+
+
     context = {
         'today': today,
         'time_threshold': time_threshold,
@@ -121,6 +128,7 @@ def home(request):
         'form': form,
         'scheduler_times': scheduler_times,
         'scheduler_zones': scheduler_zones,
+        'expired_license_count': expired_license_count,
         'z_701': z_701,
         'z_705': z_705,
         'z_710': z_710,
@@ -145,10 +153,12 @@ def allResponders(request):
     time_threshold = today + timedelta(days=30)
 
     expired_licenses = []
+    expired_license_count = 0
     for responder in responders:
         if responder['license_expiration'] is not None:
             if responder['license_expiration'] < today:
                 expired_licenses.append(responder['firstname'])
+                expired_license_count += 1
 
     expired_cprs = []
     for responder in responders:
@@ -170,6 +180,7 @@ def allResponders(request):
             'today': today,
             'time_threshold': time_threshold,
             'expired_licenses': expired_licenses,
+            'expired_license_count': expired_license_count,
             'expired_cprs': expired_cprs,
             'page_obj': page_obj,
             }
@@ -218,6 +229,14 @@ def updateResponder(request, pk):
 def allCalls(request):
 
     calls = Call.objects.all().order_by('-datetime').values()
+    responders = Responder.objects.filter(active=True).order_by('firstname').values() 
+    today = timezone.now()
+
+    expired_license_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < today.date():
+                expired_license_count += 1 
     # Search Filter
     callFilter = CallFilter(request.GET, queryset=calls)
     calls = callFilter.qs
@@ -229,6 +248,7 @@ def allCalls(request):
     context = {
             'calls': calls, 
             'callFilter': callFilter, 
+            'expired_license_count': expired_license_count, 
             'page_obj': page_obj,
             }
     return render(request, 'calls/all_calls.html', context)
@@ -329,6 +349,15 @@ def cancelCall(request, pk):
 def allWalkins(request):
 
     walkins = Walkin.objects.all().order_by('-datetime').values()
+    responders = Responder.objects.filter(active=True).order_by('firstname').values() 
+    today = timezone.now()
+
+    expired_license_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < today.date():
+                expired_license_count += 1
+
     # Search Filter
     walkinFilter = WalkinFilter(request.GET, queryset=walkins)
     walkins = walkinFilter.qs
@@ -339,7 +368,8 @@ def allWalkins(request):
 
     context = {
             'walkins': walkins, 
-            'walkinFilter': walkinFilter, 
+            'walkinFilter': walkinFilter,
+            'expired_license_count': expired_license_count,
             'page_obj': page_obj,
             }
     return render(request, 'calls/all_walkins.html', context)
@@ -445,6 +475,15 @@ def reporting(request):
     r_740 = reds.filter(zone='740').count()
     r_745 = reds.filter(zone='745').count()
 
+    today = timezone.now()
+    responders = Responder.objects.filter(active=True).order_by('firstname').values() 
+
+    expired_license_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < today.date():
+                expired_license_count += 1
+
     context = {
             'z_701': z_701,
             'z_705': z_705,
@@ -478,6 +517,7 @@ def reporting(request):
             'r_730': r_730,
             'r_740': r_740,
             'r_745': r_745,
+            'expired_license_count': expired_license_count,
             }
     return render(request, 'calls/reporting.html', context)
 
@@ -489,6 +529,13 @@ def allMinors(request):
     
     today = timezone.now().date()
     minors = Minor.objects.filter(dob__gte=today-timedelta(days=6570)).order_by('lastname').values()
+    responders = Responder.objects.filter(active=True).order_by('firstname').values() 
+
+    expired_license_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < today:
+                expired_license_count += 1
 
     # Search Filter
     minorFilter = MinorFilter(request.GET, queryset=minors)
@@ -502,6 +549,7 @@ def allMinors(request):
             'minors': minors, 
             'minorFilter': minorFilter,
             'today': today,
+            'expired_license_count': expired_license_count,
             'page_obj': page_obj
             }
     return render(request, 'calls/all_minors.html', context)
