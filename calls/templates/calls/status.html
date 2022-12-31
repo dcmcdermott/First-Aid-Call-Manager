@@ -5,27 +5,59 @@
 		<div class="card text-center text-white ml-5 w-auto shadow">
 			<table class="table table-sm small mb-0">
 				<tr class="bg-dark text-white">
-					<th></th>
-					{% for i in '012345'|make_list %}
-						<th>
-							<select class="form-select form-select-sm w-50 text-center no-arrow">
-								{% for time in scheduler_times %}
-									<option>{{ time }}</option>
-								{% endfor %}
-						  	</select>
-						</th>
-					{% endfor %}
-					
+					<th><td><a method="POST" class="btn btn-sm shadow"  href="{% url 'update_schedule' %}">🖍</a></td></th>
+					<th>{{ schedule.t_1 }}</th>
+					<th>{{ schedule.t_2 }}</th>
+					<th>{{ schedule.t_3 }}</th>
+					<th>{{ schedule.t_4 }}</th>
+					<th>{{ schedule.t_5 }}</th>
+					<th>{{ schedule.t_6 }}</th>
 				</tr>
-				{% for zone in scheduler_zones %}
-					<tr>
-						<td class="font-weight-bold">{{ zone }}</td> 
-						{% for i in '012345'|make_list %}                      
-							<td>{{ form.responder }}</td>
-						{% endfor %}
-					</tr>
-				{% endfor %}
+				<tr>
+					<td></td>
+					<td class="font-weight-bold">705</td>
+					<td>{{ schedule.p5_1 }}</td> 
+					<td>{{ schedule.p5_2 }}</td> 
+					<td>{{ schedule.p5_3 }}</td> 
+					<td>{{ schedule.p5_4 }}</td> 
+					<td>{{ schedule.p5_5 }}</td> 
+					<td>{{ schedule.p5_6 }}</td> 
+				</tr>
+				<tr>
+					<td></td>
+					<td class="font-weight-bold">710</td>
+					<td>{{ schedule.p10_1 }}</td> 
+					<td>{{ schedule.p10_2 }}</td> 
+					<td>{{ schedule.p10_3 }}</td> 
+					<td>{{ schedule.p10_4 }}</td> 
+					<td>{{ schedule.p10_5 }}</td> 
+					<td>{{ schedule.p10_6 }}</td> 
+				</tr>
+				<tr>
+					<td></td>
+					<td class="font-weight-bold">720</td>
+					<td>{{ schedule.p20_1 }}</td> 
+					<td>{{ schedule.p20_2 }}</td> 
+					<td>{{ schedule.p20_3 }}</td> 
+					<td>{{ schedule.p20_4 }}</td> 
+					<td>{{ schedule.p20_5 }}</td> 
+					<td>{{ schedule.p20_6 }}</td> 
+				</tr>
+				<tr>
+					<td></td>
+					<td class="font-weight-bold">730</td>
+					<td>{{ schedule.p30_1 }}</td> 
+					<td>{{ schedule.p30_2 }}</td> 
+					<td>{{ schedule.p30_3 }}</td> 
+					<td>{{ schedule.p30_4 }}</td> 
+					<td>{{ schedule.p30_5 }}</td> 
+					<td>{{ schedule.p30_6 }}</td> 
+				</tr>
 			</table>
+			<form class="table table-sm small mb-0">
+				
+				
+			</form>
 		</div>
 	</div>
 	<div class="col-md-2">
@@ -71,14 +103,14 @@
 					  		label: 'Calls today',
 					  		data: [{{ z_701 }}, {{ z_705 }}, {{ z_710 }}, {{ z_720 }}, {{ z_725 }}, {{ z_730 }}, {{ z_740 }}, {{ z_745 }}],
 					  		backgroundColor: [
-    							  'rgba(255, 99, 132, 0.8)',
-    							  'rgba(255, 159, 64, 0.8)',
-    							  'rgba(255, 205, 86, 0.8)',
-    							  'rgba(17, 171, 22, 0.8)',
-    							  'rgba(54, 162, 235, 0.8)',
-    							  'rgba(153, 102, 255, 0.8)',
-								  'rgba(0, 250, 229, 0.8)',
-    							  'rgba(201, 203, 207, 0.8)'
+    							  'rgba(255, 99, 132, 1)',
+    							  'rgba(255, 159, 64, 1)',
+    							  'rgba(255, 205, 86, 1)',
+    							  'rgba(17, 171, 22, 1)',
+    							  'rgba(54, 162, 235, 1)',
+    							  'rgba(153, 102, 255, 1)',
+								  'rgba(0, 250, 229, 1)',
+    							  'rgba(201, 203, 207, 1)'
     						],
     						borderColor: [
     					  		'rgb(255, 99, 132)',

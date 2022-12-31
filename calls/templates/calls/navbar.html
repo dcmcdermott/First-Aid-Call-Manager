@@ -22,7 +22,7 @@
         <a class="nav-link" href="{% url 'all_responders' %}">Responders</a>
       </li>
       {% if expired_license_count is not 0 %}
-      <p title="A responder has an expired license">🟥</p>
+      <p title="A responder has an expired license"><img src="{% static 'images/redalert.png' %}"></p>
       {% endif %}
       <li class="nav-item {% if url_name == 'all_minors' %}active{% endif%}">
         <a class="nav-link" href="{% url 'all_minors' %}">Minors</a>

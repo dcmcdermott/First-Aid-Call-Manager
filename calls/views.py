@@ -77,6 +77,9 @@ def home(request):
     today = timezone.now()
     time_threshold = today - timedelta(hours=2)
 
+    schedule = Schedule.objects.get(id=1)
+    schedule_form = ScheduleForm(instance=schedule)
+
     calls = Call.objects.all().order_by('-datetime')[:10]
     calls_today_count = Call.objects.filter(datetime__date=today).count()
     calls_mtd_count = Call.objects.filter(datetime__year=today.year, datetime__month=today.month).count()
@@ -90,12 +93,6 @@ def home(request):
 
     responders = Responder.objects.filter(active=True).order_by('firstname').values()   
     form = AssignRespondersForm()
-
-    scheduler_times = [
-        '🕚', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-        '21', '22', '23', '24', '01', '02', '03', '04', '05', '06', '07', '08', '09'
-        ]
-    scheduler_zones = ['705', '710', '720', '730']
 
     z_701 = todays_calls.filter(zone='701').count()
     z_705 = todays_calls.filter(zone='705').count()
@@ -125,9 +122,9 @@ def home(request):
         'walkins_mtd_count': walkins_mtd_count,
         'walkins_ytd_count': walkins_ytd_count,
         'responders': responders,
+        'schedule': schedule,
+        'schedule_form': schedule_form,
         'form': form,
-        'scheduler_times': scheduler_times,
-        'scheduler_zones': scheduler_zones,
         'expired_license_count': expired_license_count,
         'z_701': z_701,
         'z_705': z_705,
@@ -588,3 +585,21 @@ def updateMinorConsent(request, pk):
     
     context = {'form': form}
     return render(request, 'calls/minor_form.html', context)
+
+
+# - Update Schedule
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin', 'Supervisors'])
+def updateSchedule(request):
+
+    schedule = Schedule.objects.get(id=1)
+    form = ScheduleForm(instance=schedule)
+
+    if request.method == 'POST':
+        form = ScheduleForm(request.POST, request.FILES, instance=schedule)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    
+    context = {'form': form}
+    return render(request, 'calls/schedule_form.html', context)

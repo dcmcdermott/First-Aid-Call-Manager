@@ -124,3 +124,43 @@ class Minor(models.Model):
     
     def __str__(self):
         return f"{self.lastname}, {self.firstname}"
+
+
+class Schedule(models.Model):
+
+    t_1 = models.CharField(blank=True, max_length=100, null=True)
+    t_2 = models.CharField(blank=True, max_length=100, null=True)
+    t_3 = models.CharField(blank=True, max_length=100, null=True)
+    t_4 = models.CharField(blank=True, max_length=100, null=True)
+    t_5 = models.CharField(blank=True, max_length=100, null=True)
+    t_6 = models.CharField(blank=True, max_length=100, null=True)
+    p5_1 = models.CharField(blank=True, max_length=100, null=True)
+    p5_2 = models.CharField(blank=True, max_length=100, null=True)
+    p5_3 = models.CharField(blank=True, max_length=100, null=True)
+    p5_4 = models.CharField(blank=True, max_length=100, null=True)
+    p5_5 = models.CharField(blank=True, max_length=100, null=True)
+    p5_6 = models.CharField(blank=True, max_length=100, null=True)
+    p10_1 = models.CharField(blank=True, max_length=100, null=True)
+    p10_2 = models.CharField(blank=True, max_length=100, null=True)
+    p10_3 = models.CharField(blank=True, max_length=100, null=True)
+    p10_4 = models.CharField(blank=True, max_length=100, null=True)
+    p10_5 = models.CharField(blank=True, max_length=100, null=True)
+    p10_6 = models.CharField(blank=True, max_length=100, null=True)
+    p20_1 = models.CharField(blank=True, max_length=100, null=True)
+    p20_2 = models.CharField(blank=True, max_length=100, null=True)
+    p20_3 = models.CharField(blank=True, max_length=100, null=True)
+    p20_4 = models.CharField(blank=True, max_length=100, null=True)
+    p20_5 = models.CharField(blank=True, max_length=100, null=True)
+    p20_6 = models.CharField(blank=True, max_length=100, null=True)
+    p30_1 = models.CharField(blank=True, max_length=100, null=True)
+    p30_2 = models.CharField(blank=True, max_length=100, null=True)
+    p30_3 = models.CharField(blank=True, max_length=100, null=True)
+    p30_4 = models.CharField(blank=True, max_length=100, null=True)
+    p30_5 = models.CharField(blank=True, max_length=100, null=True)
+    p30_6 = models.CharField(blank=True, max_length=100, null=True)
+
+
+
+
+
+

@@ -1,0 +1,72 @@
+{% extends 'calls/main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<br>
+<div class="row">
+    <div class="col-md-12 mb-3">
+        <div class="card card-body w-75 m-auto bg-dark text-white shadow">
+            <h5>🧍🏽‍♂️ Schedule </h5>
+        </div>
+        <div class="card card-body w-75 m-auto shadow">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table class="mb-4">
+                <tr>
+                    <td></td>
+                    <td>{{ form.t_1 }}</td>
+                    <td>{{ form.t_2 }}</td>
+                    <td>{{ form.t_3 }}</td>
+                    <td>{{ form.t_4 }}</td>
+                    <td>{{ form.t_5 }}</td>
+                    <td>{{ form.t_6 }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">705</td>
+                    <td>{{ form.p5_1 }}</td>
+                    <td>{{ form.p5_2 }}</td>
+                    <td>{{ form.p5_3 }}</td>
+                    <td>{{ form.p5_4 }}</td>
+                    <td>{{ form.p5_5 }}</td>
+                    <td>{{ form.p5_6 }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">710</td>
+                    <td>{{ form.p10_1 }}</td>
+                    <td>{{ form.p10_2 }}</td>
+                    <td>{{ form.p10_3 }}</td>
+                    <td>{{ form.p10_4 }}</td>
+                    <td>{{ form.p10_5 }}</td>
+                    <td>{{ form.p10_6 }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">720</td>
+                    <td>{{ form.p20_1 }}</td>
+                    <td>{{ form.p20_2 }}</td>
+                    <td>{{ form.p20_3 }}</td>
+                    <td>{{ form.p20_4 }}</td>
+                    <td>{{ form.p20_5 }}</td>
+                    <td>{{ form.p20_6 }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">730</td>
+                    <td>{{ form.p30_1 }}</td>
+                    <td>{{ form.p30_2 }}</td>
+                    <td>{{ form.p30_3 }}</td>
+                    <td>{{ form.p30_4 }}</td>
+                    <td>{{ form.p30_5 }}</td>
+                    <td>{{ form.p30_6 }}</td>
+                </tr>
+                </table>
+                <div class="text-center">
+                    <a class="btn btn-outline-warning shadow" href="">Cancel</a>
+                    <input class="btn btn-primary w-25 shadow" type="submit" name="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

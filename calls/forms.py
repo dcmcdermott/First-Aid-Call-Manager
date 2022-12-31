@@ -125,4 +125,46 @@ class UpdateMinorConsentForm(ModelForm):
     class Meta:
         model = Minor
         fields = ['consent_scan']
-        
+
+
+class ScheduleForm(ModelForm):
+    class Meta:
+        model = Schedule
+        fields = '__all__'
+        labels = {
+            
+        }
+        widgets = {
+            't_1': TimeInput(attrs={'type': 'time', 'style': 'margin-bottom: 10px;'}),
+            't_2': TimeInput(attrs={'type': 'time', 'style': 'margin-bottom: 10px;'}),
+            't_3': TimeInput(attrs={'type': 'time', 'style': 'margin-bottom: 10px;'}),
+            't_4': TimeInput(attrs={'type': 'time', 'style': 'margin-bottom: 10px;'}),
+            't_5': TimeInput(attrs={'type': 'time', 'style': 'margin-bottom: 10px;'}),
+            't_6': TimeInput(attrs={'type': 'time', 'style': 'margin-bottom: 10px;'}),
+            'p5_1': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p5_2': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p5_3': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p5_4': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p5_5': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p5_6': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p10_6': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p10_1': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p10_2': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p10_3': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p10_4': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p10_5': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p10_6': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p20_1': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p20_2': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p20_3': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p20_4': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p20_5': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p20_6': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p30_1': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p30_2': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p30_3': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p30_4': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p30_5': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+            'p30_6': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
+     
+        }
