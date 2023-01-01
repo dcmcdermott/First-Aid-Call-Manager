@@ -19,10 +19,12 @@
         <a class="nav-link" href="{% url 'all_calls' %}">Calls</a>
       </li>
       <li class="nav-item {% if url_name == 'all_responders' %}active{% endif%}">
-        <a class="nav-link {% if expired_license_count is not 0 %}text-danger{% endif %}" href="{% url 'all_responders' %}">Responders</a>
+        <a class="nav-link {% if expired_credential_count is not 0 %}text-danger{% elif nearly_expired_credential_count is not 0 %}text-warning{% endif %}" href="{% url 'all_responders' %}">Responders</a>
       </li>
-      {% if expired_license_count is not 0 %}
-      <p title="A responder has an expired license"><img src="{% static 'images/redalert.png' %}"></p>
+      {% if expired_credential_count is not 0 %}
+      <p title="A responder has a nearly expired license"><img src="{% static 'images/redalert.png' %}"></p>
+      {% elif nearly_expired_credential_count is not 0 %}
+      <p title="A responder has an expired license"><img src="{% static 'images/yellowalert.png' %}"></p>
       {% endif %}
       <li class="nav-item {% if url_name == 'all_minors' %}active{% endif%}">
         <a class="nav-link" href="{% url 'all_minors' %}">Minors</a>

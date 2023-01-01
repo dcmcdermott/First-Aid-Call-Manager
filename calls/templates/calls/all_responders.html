@@ -57,8 +57,8 @@
 						<td>{{ responder.status }}</td>
 						<td>{{ responder.phone }}</td>
 						<td>{{ responder.email }}</td>
-						<td class="text-success {% if responder.license_expiration <= today %}text-danger{% elif responder.license_expiration < time_threshold %}text-warning{% endif %}">{{ responder.license_expiration }}</td>
-						<td class="text-success {% if responder.cpr_expiration <= today %}text-danger{% elif responder.cpr_expiration < time_threshold %}text-warning{% endif %}">{{ responder.cpr_expiration }}</td>
+						<td class="text-success {% if responder.license_expiration <= today.date %}text-danger{% elif responder.license_expiration < time_threshold.date %}text-warning{% endif %}">{{ responder.license_expiration }}</td>
+						<td class="text-success {% if responder.cpr_expiration <= today.date %}text-danger{% elif responder.cpr_expiration < time_threshold.date %}text-warning{% endif %}">{{ responder.cpr_expiration }}</td>
 						{% if responder.active == True %}
 							<td>Active</td>
 						{% endif %}
@@ -73,13 +73,12 @@
 				<p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}</p>
 				<ul class="pagination align-right float-right ml-auto">
 					{% if page_obj.has_previous %}
-					<li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
-					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+						<li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+						<li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
 					{% endif %}
-			  
 					{% if page_obj.has_next %}
-					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
-					<li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+						<li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+						<li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
 					{% endif %}
 				</ul>
 			</div>

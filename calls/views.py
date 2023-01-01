@@ -76,6 +76,7 @@ def home(request):
 
     today = timezone.now()
     time_threshold = today - timedelta(hours=2)
+    expiring_threshold = today + timedelta(days=30)
 
     schedule = Schedule.objects.get(id=1)
     schedule_form = ScheduleForm(instance=schedule)
@@ -103,12 +104,17 @@ def home(request):
     z_740 = todays_calls.filter(zone='740').count()
     z_745 = todays_calls.filter(zone='745').count()
 
-    expired_license_count = 0
+    expired_credential_count = 0
     for responder in responders:
         if responder['license_expiration'] is not None:
-            if responder['license_expiration'] < today.date():
-                expired_license_count += 1
+            if responder['license_expiration'] < today.date() or responder['cpr_expiration'] < today.date():
+                expired_credential_count += 1
 
+    nearly_expired_credential_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < expiring_threshold.date() or responder['cpr_expiration'] < expiring_threshold.date():
+                nearly_expired_credential_count += 1
 
     context = {
         'today': today,
@@ -125,7 +131,8 @@ def home(request):
         'schedule': schedule,
         'schedule_form': schedule_form,
         'form': form,
-        'expired_license_count': expired_license_count,
+        'expired_credential_count': expired_credential_count,
+        'nearly_expired_credential_count': nearly_expired_credential_count,
         'z_701': z_701,
         'z_705': z_705,
         'z_710': z_710,
@@ -146,21 +153,33 @@ def allResponders(request):
     
     responders = Responder.objects.filter(active=True).order_by('firstname').values()
 
-    today = timezone.now().date()
+    today = timezone.now()
     time_threshold = today + timedelta(days=30)
+
+    expired_credential_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < today.date() or responder['cpr_expiration'] < today.date():
+                expired_credential_count += 1
+
+    nearly_expired_credential_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < time_threshold.date() or responder['cpr_expiration'] < time_threshold.date():
+                nearly_expired_credential_count += 1
 
     expired_licenses = []
     expired_license_count = 0
     for responder in responders:
         if responder['license_expiration'] is not None:
-            if responder['license_expiration'] < today:
+            if responder['license_expiration'] < today.date():
                 expired_licenses.append(responder['firstname'])
                 expired_license_count += 1
 
     expired_cprs = []
     for responder in responders:
         if responder['cpr_expiration'] is not None:
-            if responder['cpr_expiration'] < today:
+            if responder['cpr_expiration'] < today.date():
                 expired_cprs.append(responder['firstname'])
 
     # Search Filter
@@ -178,6 +197,8 @@ def allResponders(request):
             'time_threshold': time_threshold,
             'expired_licenses': expired_licenses,
             'expired_license_count': expired_license_count,
+            'expired_credential_count': expired_credential_count,
+            'nearly_expired_credential_count': nearly_expired_credential_count,
             'expired_cprs': expired_cprs,
             'page_obj': page_obj,
             }
@@ -229,11 +250,19 @@ def allCalls(request):
     responders = Responder.objects.filter(active=True).order_by('firstname').values() 
     today = timezone.now()
 
-    expired_license_count = 0
+    expired_credential_count = 0
     for responder in responders:
         if responder['license_expiration'] is not None:
-            if responder['license_expiration'] < today.date():
-                expired_license_count += 1 
+            if responder['license_expiration'] < today.date() or responder['cpr_expiration'] < today.date():
+                expired_credential_count += 1
+
+    time_threshold = today + timedelta(days=30)
+    nearly_expired_credential_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < time_threshold.date() or responder['cpr_expiration'] < time_threshold.date():
+                nearly_expired_credential_count += 1
+   
     # Search Filter
     callFilter = CallFilter(request.GET, queryset=calls)
     calls = callFilter.qs
@@ -243,9 +272,10 @@ def allCalls(request):
     page_obj = Paginator.get_page(paginator, page_number)
 
     context = {
-            'calls': calls, 
-            'callFilter': callFilter, 
-            'expired_license_count': expired_license_count, 
+            'calls': calls,
+            'callFilter': callFilter,
+            'expired_credential_count': expired_credential_count,
+            'nearly_expired_credential_count': nearly_expired_credential_count, 
             'page_obj': page_obj,
             }
     return render(request, 'calls/all_calls.html', context)
@@ -349,11 +379,18 @@ def allWalkins(request):
     responders = Responder.objects.filter(active=True).order_by('firstname').values() 
     today = timezone.now()
 
-    expired_license_count = 0
+    expired_credential_count = 0
     for responder in responders:
         if responder['license_expiration'] is not None:
-            if responder['license_expiration'] < today.date():
-                expired_license_count += 1
+            if responder['license_expiration'] < today.date() or responder['cpr_expiration'] < today.date():
+                expired_credential_count += 1
+
+    time_threshold = today + timedelta(days=30)
+    nearly_expired_credential_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < time_threshold.date() or responder['cpr_expiration'] < time_threshold.date():
+                nearly_expired_credential_count += 1
 
     # Search Filter
     walkinFilter = WalkinFilter(request.GET, queryset=walkins)
@@ -366,7 +403,8 @@ def allWalkins(request):
     context = {
             'walkins': walkins, 
             'walkinFilter': walkinFilter,
-            'expired_license_count': expired_license_count,
+            'expired_credential_count': expired_credential_count,
+            'nearly_expired_credential_count': nearly_expired_credential_count,
             'page_obj': page_obj,
             }
     return render(request, 'calls/all_walkins.html', context)
@@ -472,14 +510,21 @@ def reporting(request):
     r_740 = reds.filter(zone='740').count()
     r_745 = reds.filter(zone='745').count()
 
+    responders = Responder.objects.filter(active=True).order_by('firstname').values()
     today = timezone.now()
-    responders = Responder.objects.filter(active=True).order_by('firstname').values() 
 
-    expired_license_count = 0
+    expired_credential_count = 0
     for responder in responders:
         if responder['license_expiration'] is not None:
-            if responder['license_expiration'] < today.date():
-                expired_license_count += 1
+            if responder['license_expiration'] < today.date() or responder['cpr_expiration'] < today.date():
+                expired_credential_count += 1
+
+    time_threshold = today + timedelta(days=30)
+    nearly_expired_credential_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < time_threshold.date() or responder['cpr_expiration'] < time_threshold.date():
+                nearly_expired_credential_count += 1
 
     context = {
             'z_701': z_701,
@@ -514,7 +559,8 @@ def reporting(request):
             'r_730': r_730,
             'r_740': r_740,
             'r_745': r_745,
-            'expired_license_count': expired_license_count,
+            'expired_credential_count': expired_credential_count,
+            'nearly_expired_credential_count': nearly_expired_credential_count,
             }
     return render(request, 'calls/reporting.html', context)
 
@@ -524,15 +570,22 @@ def reporting(request):
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def allMinors(request):
     
-    today = timezone.now().date()
+    today = timezone.now()
     minors = Minor.objects.filter(dob__gte=today-timedelta(days=6570)).order_by('lastname').values()
-    responders = Responder.objects.filter(active=True).order_by('firstname').values() 
+    responders = Responder.objects.filter(active=True).order_by('firstname').values()
 
-    expired_license_count = 0
+    expired_credential_count = 0
     for responder in responders:
         if responder['license_expiration'] is not None:
-            if responder['license_expiration'] < today:
-                expired_license_count += 1
+            if responder['license_expiration'] < today.date() or responder['cpr_expiration'] < today.date():
+                expired_credential_count += 1
+
+    time_threshold = today + timedelta(days=30)
+    nearly_expired_credential_count = 0
+    for responder in responders:
+        if responder['license_expiration'] is not None:
+            if responder['license_expiration'] < time_threshold.date() or responder['cpr_expiration'] < time_threshold.date():
+                nearly_expired_credential_count += 1
 
     # Search Filter
     minorFilter = MinorFilter(request.GET, queryset=minors)
@@ -545,8 +598,9 @@ def allMinors(request):
     context = {
             'minors': minors, 
             'minorFilter': minorFilter,
+            'expired_credential_count': expired_credential_count,
+            'nearly_expired_credential_count': nearly_expired_credential_count,
             'today': today,
-            'expired_license_count': expired_license_count,
             'page_obj': page_obj
             }
     return render(request, 'calls/all_minors.html', context)
