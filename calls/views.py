@@ -13,35 +13,31 @@ from .forms import *
 from .filters import *
 from .decorators import *
 
+###################################################################################################################
+################################################ Register/Login ###################################################
+###################################################################################################################
 
-######### Register/Login ############
-# - Register
+# Register
 @unauthenticated_user
 def registerPage(request):
 
     form = CreateUserForm()
 
     if request.method == 'POST': 
-
         form = CreateUserForm(request.POST)  
-
         if form.is_valid():
-
             user = form.save()
             username = form.cleaned_data.get('username')
-
             group = Group.objects.get(name='Supervisors')
             user.groups.add(group)
-
             messages.success(request, 'Account was created for ' + username)
-
             return redirect('login')
         
     context = {'form': form}
     return render(request, 'calls/register.html', context)
 
 
-# - Login
+# Login
 @unauthenticated_user
 def loginPage(request):
         
@@ -61,7 +57,7 @@ def loginPage(request):
     return render(request, 'calls/login.html', context)
 
 
-# - Logout
+# Logout
 def logoutUser(request):
 
     logout(request)
@@ -69,7 +65,10 @@ def logoutUser(request):
     return redirect('login')
 
 
-######### Dashboard ############\
+###################################################################################################################
+################################################ Dashboard ########################################################
+###################################################################################################################
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def home(request):
@@ -145,8 +144,11 @@ def home(request):
     return render(request, 'calls/dashboard.html', context)
 
 
-######### RESPONDERS #########
-# - All Responders
+###################################################################################################################
+################################################ Responders #######################################################
+###################################################################################################################
+
+# All Responders
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def allResponders(request):
@@ -182,10 +184,9 @@ def allResponders(request):
             if responder['cpr_expiration'] < today.date():
                 expired_cprs.append(responder['firstname'])
 
-    # Search Filter
     responderFilter = ResponderFilter(request.GET, queryset=responders)
     responders = responderFilter.qs
-    # Pagination
+
     paginator = Paginator(responders, 50)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
@@ -205,7 +206,7 @@ def allResponders(request):
     return render(request, 'calls/all_responders.html', context)
 
 
-# - New Responder
+# New Responder
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def newResponder(request):
@@ -222,7 +223,7 @@ def newResponder(request):
     return render(request, 'calls/responder_form.html', context)
 
 
-# - Update Responder
+# Update Responder
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def updateResponder(request, pk):
@@ -240,8 +241,11 @@ def updateResponder(request, pk):
     return render(request, 'calls/responder_form.html', context)
 
 
-######### CALLS #########
-# - All Calls
+###################################################################################################################
+################################################ Calls ############################################################
+###################################################################################################################
+
+# All Calls
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def allCalls(request):
@@ -263,10 +267,9 @@ def allCalls(request):
             if responder['license_expiration'] < time_threshold.date() or responder['cpr_expiration'] < time_threshold.date():
                 nearly_expired_credential_count += 1
    
-    # Search Filter
     callFilter = CallFilter(request.GET, queryset=calls)
     calls = callFilter.qs
-    # Pagination
+  
     paginator = Paginator(calls, 25)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
@@ -281,7 +284,7 @@ def allCalls(request):
     return render(request, 'calls/all_calls.html', context)
 
 
-# - New Call
+# New Call
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def newCall(request):
@@ -301,7 +304,7 @@ def newCall(request):
     return render(request, 'calls/call_form.html', context)
 
 
-# - On Scene
+# On Scene
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def onScene(request, pk):
@@ -317,7 +320,7 @@ def onScene(request, pk):
     return render(request, 'calls/on_scene.html', context)
 
 
-# - Upgrade Call
+# Upgrade Call
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def upgradeCall(request, pk):
@@ -335,7 +338,7 @@ def upgradeCall(request, pk):
     return render(request, 'calls/upgrade_call.html', context)
 
 
-# - Downgrade Call
+# Downgrade Call
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def downgradeCall(request, pk):
@@ -353,7 +356,7 @@ def downgradeCall(request, pk):
     return render(request, 'calls/downgrade_call.html', context)
 
 
-# - Cancel
+# Cancel Call
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def cancelCall(request, pk):
@@ -369,8 +372,11 @@ def cancelCall(request, pk):
     return render(request, 'calls/cancel.html', context)
 
 
-######### WALKINS #########
-# - All Walkins
+###################################################################################################################
+################################################ Walkins ##########################################################
+###################################################################################################################
+
+# All Walkins
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def allWalkins(request):
@@ -392,10 +398,9 @@ def allWalkins(request):
             if responder['license_expiration'] < time_threshold.date() or responder['cpr_expiration'] < time_threshold.date():
                 nearly_expired_credential_count += 1
 
-    # Search Filter
     walkinFilter = WalkinFilter(request.GET, queryset=walkins)
     walkins = walkinFilter.qs
-    # Pagination
+    
     paginator = Paginator(walkins, 10)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
@@ -410,7 +415,7 @@ def allWalkins(request):
     return render(request, 'calls/all_walkins.html', context)
 
 
-# - New Walkin
+# New Walkin
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def newWalkin(request):
@@ -427,7 +432,7 @@ def newWalkin(request):
     return render(request, 'calls/walkin_form.html', context)
 
 
-# - Ambassador Sign in
+# Ambassador Sign in
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def ambassadorSignin(request):
@@ -446,7 +451,7 @@ def ambassadorSignin(request):
     return render(request, 'calls/ambassador_signin_form.html', context)
 
 
-# - Walkin Notes
+# Walkin Notes
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def walkinNotes(request, pk):
@@ -464,8 +469,11 @@ def walkinNotes(request, pk):
     return render(request, 'calls/walkin_notes.html', context)
 
 
-######### REPORTING #########
-# - Reporting
+###################################################################################################################
+################################################ Reporting ########################################################
+###################################################################################################################
+
+# Reporting
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def reporting(request):
@@ -564,8 +572,12 @@ def reporting(request):
             }
     return render(request, 'calls/reporting.html', context)
 
-######### MINORS #########
-# - All Minors
+
+###################################################################################################################
+################################################ Minors ###########################################################
+###################################################################################################################
+
+# All Minors
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def allMinors(request):
@@ -587,10 +599,9 @@ def allMinors(request):
             if responder['license_expiration'] < time_threshold.date() or responder['cpr_expiration'] < time_threshold.date():
                 nearly_expired_credential_count += 1
 
-    # Search Filter
     minorFilter = MinorFilter(request.GET, queryset=minors)
     minors = minorFilter.qs
-    # Pagination
+  
     paginator = Paginator(minors, 50)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
@@ -606,7 +617,7 @@ def allMinors(request):
     return render(request, 'calls/all_minors.html', context)
 
 
-# - New Minor
+# New Minor
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def newMinor(request):
@@ -623,7 +634,7 @@ def newMinor(request):
     return render(request, 'calls/minor_form.html', context)
 
 
-# - Update Minor Consent
+# Update Minor Consent
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def updateMinorConsent(request, pk):
@@ -641,7 +652,11 @@ def updateMinorConsent(request, pk):
     return render(request, 'calls/minor_form.html', context)
 
 
-# - Update Schedule
+####################################################################################################################
+################################################ Schedule ##########################################################
+####################################################################################################################
+
+# Update Schedule
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Admin', 'Supervisors'])
 def updateSchedule(request):

@@ -18,7 +18,6 @@ class ResponderFilter(django_filters.FilterSet):
         ('PT-S', 'PT-S'),
         ('FT-S', 'FT-S')
     ) 
-
     lastname = CharFilter(field_name="lastname", lookup_expr="icontains", label= 'Last Name', widget=TextInput(attrs={'class': 'form-control ml-2 mr-2'}))
     certification = ChoiceFilter(field_name="certification", choices=CERTIFICATIONS,  label= 'Certification', widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))
     ft_pt = ChoiceFilter(field_name="status", choices=STATUS, label= 'FT/PT', widget=Select(attrs={'class': 'form-control ml-2 mr-2'}))

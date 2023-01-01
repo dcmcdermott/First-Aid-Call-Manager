@@ -7,6 +7,16 @@ from django.contrib.auth.models import User
 from .models import *
 
 
+################################################## User ############################################################
+
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
+
+
+################################################## Call ############################################################
+
 class CallForm(ModelForm):
     class Meta:
         model = Call
@@ -28,45 +38,6 @@ class CallForm(ModelForm):
             'responder': Select(attrs={'type': 'text', 'class': 'form-control w-75 ml-auto mr-auto mb-1'}),
         }
 
- 
-class WalkinForm(ModelForm):
-    class Meta:
-        model = Walkin
-        fields = ['firstname', 'lastname', 'department', 'reason',]
-        widgets = {
-            'firstname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'lastname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'department': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'reason': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-        }
-
-
-class WalkinNotesForm(ModelForm):
-    class Meta:
-        model = Walkin
-        fields = ['notes']
-        widgets = {
-            'notes': Textarea(attrs={'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-        }
-
-
-class ResponderForm(ModelForm):
-    class Meta:
-        model = Responder
-        fields = ['firstname', 'lastname', 'certification', 'status', 'phone', 'email', 'license_scan', 'license_expiration', 'cpr_scan', 'cpr_expiration', 'active']
-        widgets = {
-            'firstname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'lastname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'certification': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'status': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'phone': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'email': EmailInput(attrs={'type': 'email', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'cpr_expiration': DateInput(attrs={'type': 'date', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'license_expiration': DateInput(attrs={'type': 'date', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
-            'active': CheckboxInput(attrs={'type': 'checkbox', 'class': 'form-check', 'style': 'margin-bottom: 10px;'}),
-        }
-       
-
 class UpgradeForm(ModelForm):
     class Meta:
         model = Call
@@ -85,13 +56,7 @@ class DowngradeForm(ModelForm):
         widgets = {
             'nature': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'})
         }
-        
-
-class CreateUserForm(UserCreationForm):
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
-
+ 
 
 class AssignRespondersForm(ModelForm):
     class Meta:
@@ -101,6 +66,50 @@ class AssignRespondersForm(ModelForm):
             'responder': Select(attrs={'type': 'text', 'class': 'no-arrow text-center'})
         }
 
+
+################################################## Walkin ############################################################
+
+class WalkinForm(ModelForm):
+    class Meta:
+        model = Walkin
+        fields = ['firstname', 'lastname', 'department', 'reason',]
+        widgets = {
+            'firstname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'placeholder': 'First Name', 'style': 'margin-bottom: 10px;'}),
+            'lastname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'placeholder': 'Last Name', 'style': 'margin-bottom: 10px;'}),
+            'department': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'reason': TextInput(attrs={'type': 'text', 'class': 'form-control', 'placeholder': 'Reason for visit...', 'style': 'margin-bottom: 10px;'}),
+        }
+
+
+class WalkinNotesForm(ModelForm):
+    class Meta:
+        model = Walkin
+        fields = ['notes']
+        widgets = {
+            'notes': Textarea(attrs={'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+        }
+
+
+################################################## Responder ############################################################
+
+class ResponderForm(ModelForm):
+    class Meta:
+        model = Responder
+        fields = ['firstname', 'lastname', 'certification', 'status', 'phone', 'email', 'license_scan', 'license_expiration', 'cpr_scan', 'cpr_expiration', 'active']
+        widgets = {
+            'firstname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'lastname': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'certification': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'status': Select(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'phone': TextInput(attrs={'type': 'text', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'email': EmailInput(attrs={'type': 'email', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'cpr_expiration': DateInput(attrs={'type': 'date', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'license_expiration': DateInput(attrs={'type': 'date', 'class': 'form-control', 'style': 'margin-bottom: 10px;'}),
+            'active': CheckboxInput(attrs={'type': 'checkbox', 'class': 'form-check', 'style': 'margin-bottom: 10px;'}),
+        }
+        
+
+################################################## Minor ############################################################
 
 class MinorForm(ModelForm):
     class Meta:
@@ -126,6 +135,8 @@ class UpdateMinorConsentForm(ModelForm):
         model = Minor
         fields = ['consent_scan']
 
+
+################################################## Schedule ############################################################
 
 class ScheduleForm(ModelForm):
     class Meta:
@@ -165,6 +176,5 @@ class ScheduleForm(ModelForm):
             'p30_3': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
             'p30_4': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
             'p30_5': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
-            'p30_6': TextInput(attrs={'type': 'text', 'class': 'w-75'}),
-     
+            'p30_6': TextInput(attrs={'type': 'text', 'class': 'w-75'}) 
         }

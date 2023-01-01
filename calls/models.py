@@ -77,7 +77,6 @@ class Call(models.Model):
         return f"{self.id} -- {self.datetime.date()} -- {self.location} "
 
 
-
 class Walkin(models.Model):
     DEPARTMENTS = (
         ('Culinary', 'Culinary'),
@@ -158,9 +157,3 @@ class Schedule(models.Model):
     p30_4 = models.CharField(blank=True, max_length=100, null=True)
     p30_5 = models.CharField(blank=True, max_length=100, null=True)
     p30_6 = models.CharField(blank=True, max_length=100, null=True)
-
-
-
-
-
-
